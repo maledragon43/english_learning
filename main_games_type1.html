@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games Container</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="main-container">
+    <div class="frame-card">
+      <div class="frame-header">
+        <div class="brand-title">LEARN - ENGLISH GAMES</div>
+        <div class="frame-toolbar">
+          <div class="toolbar-group">
+            <button class="btn" data-load="./game1_unit_pin1/game1_unit_pin1.html">Load Game 1</button>
+            <button class="btn" data-load="./game2_unit_pin1/game2_unit_pin1.html">Load Game 2</button>
+            <button class="btn" data-load="./game3_unit_pin1/game3_unit_pin1.html">Load Game 3</button>
+          </div>
+          <div class="toolbar-group">
+            <span class="score-pill">Score: <span id="score">0</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="frame-body">
+        <div class="frame-body-inner">
+          <div class="iframe-wrap">
+            <iframe id="gameFrame" class="iframe-el" src="./game1_unit_pin1/game1_unit_pin1.html" title="Game"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="frame-footer">
+        <div>Tip: Use the buttons to switch games.</div>
+        <div class="muted">Unit 1 · Colors and names</div>
+      </div>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+<\html>
+
+

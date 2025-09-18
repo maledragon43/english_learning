@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 2 · Balloon Burst</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Balloon sizing relative to dashboard */
+    .balloon-image{width:125%;height:auto;object-fit:contain;}
+    .balloon{position:absolute;cursor:pointer;transition:opacity 0.3s ease;width:25%;height:auto;aspect-ratio:1;background:transparent;border:none;outline:none;}
+    .balloon-stage{position:relative;width:100%;height:100%;background:transparent;}
+    
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-page">
+      <!-- <div class="game-bg"></div>
+      <img class="game-tree" src="../assets/images/tree.png" alt="">
+      <img class="game-owl" src="../assets/images/owl.gif" alt=""> -->
+
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="currentWord" class="game-top-text">COLOR</div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div class="balloon-stage" id="balloonStage"></div>
+        </div>
+
+        <!-- Progress bar removed for Game 2 -->
+      </div>
+    </div>
+  </div>
+
+  <script src="./game2_unit_pin1a.js"></script>
+  <script src="./game2_unit_pin1b.js"></script>
+</body>
+<\html>
+
+
