@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 1 · Word Dash</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-page">
+      <!-- <div class="game-bg"></div>
+      <img class="game-tree" src="../assets/images/tree.png" alt="">
+      <img class="game-owl" src="../assets/images/owl.gif" alt=""> -->
+
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="currentWord" class="game-top-text">ANIMAL</div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div class="grid-rows" id="row1"></div>
+          <div class="grid-rows" id="row2"></div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progressbar"><div class="fill" id="progressFill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./game1_unit_pin2a.js"></script>
+  <script src="./game1_unit_pin2b.js"></script>
+</body>
+</html>
