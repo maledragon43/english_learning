@@ -15,13 +15,11 @@
     balloon.className = 'balloon';
     balloon.style.left = x + '%';
     balloon.style.top = y + '%';
+    balloon.style.backgroundImage = `url('../assets/images/Word Dash photos/${animal}.png')`;
+    balloon.style.backgroundSize = 'contain';
+    balloon.style.backgroundRepeat = 'no-repeat';
+    balloon.style.backgroundPosition = 'center';
     balloon.setAttribute('data-animal', animal);
-    
-    const img = document.createElement('img');
-    img.className = 'balloon-image';
-    img.src = `../assets/images/Word Dash photos/${animal}.png`;
-    img.alt = animal;
-    balloon.appendChild(img);
     
     balloon.addEventListener('click', () => onBalloonClick(balloon, animal));
     return balloon;
@@ -29,7 +27,7 @@
 
   function generatePositions() {
     const positions = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
       let x, y;
       do {
         x = Math.random() * 70 + 15; // Keep within 15-85% range

@@ -46,11 +46,7 @@
     active.forEach((animal, idx)=>{
       const div = document.createElement('div');
       div.className = 'color-dot';
-      div.style.background = 'transparent';
       div.style.backgroundImage = `url('../assets/images/Word Dash photos/${animal}.png')`;
-      div.style.backgroundSize = 'contain';
-      div.style.backgroundRepeat = 'no-repeat';
-      div.style.backgroundPosition = 'center';
       div.setAttribute('data-name', animal);
       div.addEventListener('click', ()=>onPick(div, animal));
       (idx<3?row1:row2).appendChild(div);
