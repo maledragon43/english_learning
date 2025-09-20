@@ -64,6 +64,34 @@
     .game-top-text {
       font-size: 24px !important;
     }
+    
+    .repeat-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .repeat-button {
+      background: linear-gradient(135deg, #4ade80, #22d3ee);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .repeat-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    
+    .repeat-button:active {
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -87,6 +115,10 @@
         <!-- Problem area -->
         <div class="game-problem-area">
           <div class="memory-grid" id="grid"></div>
+          <!-- Repeat button -->
+          <div class="repeat-button-container">
+            <button id="repeatButton" class="repeat-button">🔊 REPEAT</button>
+          </div>
         </div>
 
         <!-- Progress bar removed for Game 3 -->

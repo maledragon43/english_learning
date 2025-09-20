@@ -2,6 +2,7 @@
   const { ANIMALS, sentenceData, post, autoResize, tts, updateCharacterState } = window.g3;
   const grid = document.getElementById('grid');
   const banner = document.getElementById('statusBanner');
+  const repeatButton = document.getElementById('repeatButton');
 
   let currentSentence = null;
   let currentOptions = [];
@@ -98,12 +99,21 @@
     renderOptions();
   }
 
+  function repeatSentence() {
+    if (currentSentence) {
+      tts(currentSentence.sentence);
+    }
+  }
+
   function setup() {
     turnCount = 0;
     banner.textContent = 'LISTEN AND MATCH';
     updateCharacterState('thinking');
     startNewSentence();
   }
+
+  // Add event listener for repeat button
+  repeatButton.addEventListener('click', repeatSentence);
 
   setup();
 })();
