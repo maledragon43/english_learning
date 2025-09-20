@@ -1,21 +1,9 @@
 (function(){
   const ANIMALS = ['cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'];
-  const animalSounds = { 
-    cat: 'meow', 
-    dog: 'woof', 
-    tractor: 'chug chug', 
-    horse: 'neigh', 
-    pig: 'oink', 
-    farm: 'farm sounds', 
-    cow: 'moo', 
-    duck: 'quack', 
-    chicken: 'cluck cluck', 
-    mouse: 'squeak' 
-  };
   
-  function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=0.95; u.pitch=1; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
-  function post(msg){ parent.postMessage(msg,'*'); }
+  function post(m){ parent.postMessage(m,'*'); }
   function autoResize(){ const h=document.documentElement.scrollHeight; post({type:'resize', height:h}); }
+  function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=.95; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
   
   // Character state management
   function updateCharacterState(state) {
@@ -36,7 +24,7 @@
     }
   }
   
-  window.g2 = { ANIMALS, animalSounds, tts, post, autoResize, updateCharacterState };
+  window.g2 = { ANIMALS, post, autoResize, tts, updateCharacterState };
   window.addEventListener('load', autoResize);
   window.addEventListener('resize', autoResize);
 })();

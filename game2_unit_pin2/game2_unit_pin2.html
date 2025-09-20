@@ -3,13 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game 2 · Balloon Burst</title>
+  <title>Game 2 · Memory</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
     /* Ensure iframe only shows game content */
     body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
     .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
     .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+    
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 15px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 400px;
+    }
+    .card {
+      width: 120px;
+      height: 140px;
+      position: relative;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      transform: rotateY(0deg);
+    }
+    .card.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .card-front {
+      background: transparent;
+    }
+    .card-back {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .card.matched {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .game-top-text {
+      font-size: 24px !important;
+    }
   </style>
 </head>
 <body>
@@ -23,7 +76,7 @@
         <!-- Top dashboard -->
         <div class="game-top-instruction">
           <div class="game-top-instruction-inner">
-            <div id="currentWord" class="game-top-text">ANIMAL</div>
+            <div id="statusBanner" class="game-top-text">FIND THE PAIRS</div>
           </div>
         </div>
 
@@ -32,7 +85,7 @@
 
         <!-- Problem area -->
         <div class="game-problem-area">
-          <div class="balloon-stage" id="balloonStage"></div>
+          <div class="memory-grid" id="grid"></div>
         </div>
 
         <!-- Progress bar removed for Game 2 -->
