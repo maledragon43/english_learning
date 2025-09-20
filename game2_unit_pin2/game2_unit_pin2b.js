@@ -16,9 +16,6 @@
     balloon.style.left = x + '%';
     balloon.style.top = y + '%';
     balloon.style.backgroundImage = `url('../assets/images/Word Dash photos/${animal}.png')`;
-    balloon.style.backgroundSize = 'contain';
-    balloon.style.backgroundRepeat = 'no-repeat';
-    balloon.style.backgroundPosition = 'center';
     balloon.setAttribute('data-animal', animal);
     
     balloon.addEventListener('click', () => onBalloonClick(balloon, animal));
