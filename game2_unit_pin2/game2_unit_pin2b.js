@@ -54,6 +54,7 @@
       backImg.style.width = '100%';
       backImg.style.height = '100%';
       backImg.style.objectFit = 'contain';
+      backImg.style.objectPosition = 'center';
       backImg.style.borderRadius = '8px';
       back.appendChild(backImg);
       
