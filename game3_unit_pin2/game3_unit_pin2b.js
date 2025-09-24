@@ -90,7 +90,7 @@
     currentSentence = sentenceData[turnCount];
     currentOptions = [...currentSentence.options];
     
-    banner.textContent = 'LISTEN AND MATCH';
+    banner.textContent = currentSentence.sentence;
     updateCharacterState('thinking');
     
     // Play the sentence
@@ -107,7 +107,6 @@
 
   function setup() {
     turnCount = 0;
-    banner.textContent = 'LISTEN AND MATCH';
     updateCharacterState('thinking');
     startNewSentence();
   }
