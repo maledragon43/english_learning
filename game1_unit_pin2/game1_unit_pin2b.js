@@ -15,12 +15,11 @@
   let countdownTimer = null;
   let countdownSeconds = 7;
   
-  // Create 20 variations: each animal appears twice
-  let gameVariations = [];
-  for (let i = 0; i < 2; i++) {
-    gameVariations = gameVariations.concat([...ANIMALS]);
-  }
-  gameVariations = shuffle(gameVariations);
+  // Predefined turn order for 20 variations
+  const turnOrder = [
+    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse',
+    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'
+  ];
 
   function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
   function pickSix(){ return shuffle(ANIMALS).slice(0,6); }
@@ -83,15 +82,20 @@
       return;
     }
     
-    // Use the predefined variation for this turn
-    target = gameVariations[turnCount - 1];
+    // Use predefined turn order
+    target = turnOrder[turnCount - 1];
     
-    // Create 6 animals including the target, with different variations
-    active = pickSix();
-    // Ensure target is in the active set
-    if (!active.includes(target)) {
-      active[Math.floor(Math.random() * active.length)] = target;
+    // Create 6 random animals including the target
+    active = [target];
+    while (active.length < 6) {
+      const randomAnimal = ANIMALS[Math.floor(Math.random() * ANIMALS.length)];
+      if (!active.includes(randomAnimal)) {
+        active.push(randomAnimal);
+      }
     }
+    
+    // Shuffle the active animals
+    active = shuffle(active);
     
     banner.textContent = animalSounds[target].toUpperCase();
     renderCircles();
@@ -143,41 +147,10 @@
       post({type:'score:delta', value:10});
       el.style.transform = 'scale(0.9)';
       
-      // Always change the problem when correct answer is selected
-      // Use the next variation in the sequence
-      if (turnCount < 20) {
-        target = gameVariations[turnCount];
-        banner.textContent = animalSounds[target].toUpperCase(); 
-        tts(animalSounds[target]);
-      }
-      
-      // Clear any existing fade timer first
-      clearInterval(timerId);
-      
-      // Reset ALL 6 circles to visible when problem changes (including the one that was just clicked)
-      const allDots = Array.from(document.querySelectorAll('.color-dot'));
-      allDots.forEach(dot => {
-        dot.style.opacity = '1';
-        dot.style.pointerEvents = 'auto';
-        dot.style.transform = 'scale(1)';
-      });
-      
-      // Shuffle animal dot positions
-      const shuffledDots = shuffle(allDots);
-      shuffledDots.forEach(dot => {
-        // Determine which row to append to based on index
-        const index = shuffledDots.indexOf(dot);
-        if (index < 3) {
-          row1.appendChild(dot);
-        } else {
-          row2.appendChild(dot);
-        }
-      });
-      // Reset progress bar and start new countdown timer
-      progress.style.width = '100%';
-      remainCount = active.length;
-      startCountdown();
-      setTimeout(() => updateCharacterState('thinking'), 1000);
+      // Move to next turn in predefined order
+      setTimeout(() => {
+        startNewTurn();
+      }, 1000);
     } else {
       updateCharacterState('wrong');
       post({type:'score:delta', value:-5});
