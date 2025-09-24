@@ -14,6 +14,13 @@
   let usedProblems = [];
   let countdownTimer = null;
   let countdownSeconds = 7;
+  
+  // Create 20 variations: each animal appears twice
+  let gameVariations = [];
+  for (let i = 0; i < 2; i++) {
+    gameVariations = gameVariations.concat([...ANIMALS]);
+  }
+  gameVariations = shuffle(gameVariations);
 
   function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
   function pickSix(){ return shuffle(ANIMALS).slice(0,6); }
@@ -76,23 +83,15 @@
       return;
     }
     
-    // Reset used problems if we've used all available animals
-    if (usedProblems.length >= ANIMALS.length) {
-      usedProblems = [];
-    }
+    // Use the predefined variation for this turn
+    target = gameVariations[turnCount - 1];
     
+    // Create 6 animals including the target, with different variations
     active = pickSix();
-    
-    // Select a target that hasn't been used in this game
-    let availableTargets = active.filter(animal => !usedProblems.includes(animal));
-    if (availableTargets.length === 0) {
-      // If all animals in current set have been used, reset used problems
-      usedProblems = [];
-      availableTargets = active;
+    // Ensure target is in the active set
+    if (!active.includes(target)) {
+      active[Math.floor(Math.random() * active.length)] = target;
     }
-    
-    target = availableTargets[Math.floor(Math.random()*availableTargets.length)];
-    usedProblems.push(target);
     
     banner.textContent = animalSounds[target].toUpperCase();
     renderCircles();
@@ -145,19 +144,12 @@
       el.style.transform = 'scale(0.9)';
       
       // Always change the problem when correct answer is selected
-      // Select new target that hasn't been used in this game
-      let availableTargets = active.filter(animal => !usedProblems.includes(animal));
-      if (availableTargets.length === 0) {
-        // If all animals in current set have been used, reset used problems
-        usedProblems = [];
-        availableTargets = active;
+      // Use the next variation in the sequence
+      if (turnCount < 20) {
+        target = gameVariations[turnCount];
+        banner.textContent = animalSounds[target].toUpperCase(); 
+        tts(animalSounds[target]);
       }
-      
-      const newTarget = availableTargets[Math.floor(Math.random()*availableTargets.length)];
-      target = newTarget;
-      usedProblems.push(target);
-      banner.textContent = animalSounds[target].toUpperCase(); 
-      tts(animalSounds[target]);
       
       // Clear any existing fade timer first
       clearInterval(timerId);
