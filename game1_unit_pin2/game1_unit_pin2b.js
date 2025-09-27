@@ -1,5 +1,5 @@
 (function(){
-  const { ANIMALS, animalSounds, tts, post, autoResize, updateCharacterState } = window.g1;
+  const { ANIMALS, animalSounds, playAnimalSound, tts, post, autoResize, updateCharacterState } = window.g1;
   const SPEED_MS = 1000;
   const row1 = document.getElementById('row1');
   const row2 = document.getElementById('row2');
@@ -70,7 +70,7 @@
     // Start 7-second countdown timer
     startCountdown();
     // Play the animal sound
-    tts(animalSounds[target]);
+    playAnimalSound(target);
     autoResize();
   }
 
@@ -105,7 +105,7 @@
     // Start 7-second countdown timer
     startCountdown();
     // Play the animal sound
-    tts(animalSounds[target]);
+    playAnimalSound(target);
     autoResize();
   }
 

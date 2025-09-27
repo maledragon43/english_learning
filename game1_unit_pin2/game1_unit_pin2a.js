@@ -13,7 +13,32 @@
     mouse: 'squeak' 
   };
   
+  const animalAudioFiles = {
+    cat: '../assets/sounds/cat.mp3',
+    dog: '../assets/sounds/dog.mp3', 
+    tractor: '../assets/sounds/tractor.mp3',
+    horse: '../assets/sounds/horse.mp3',
+    pig: '../assets/sounds/pig.mp3',
+    farm: '../assets/sounds/farm.mp3',
+    cow: '../assets/sounds/cow.mp3',
+    duck: '../assets/sounds/duck.mp3',
+    chicken: '../assets/sounds/chicken.mp3',
+    mouse: '../assets/sounds/mouse.mp3'
+  };
+  
   function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=0.95; u.pitch=1; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
+  function playAnimalSound(animal) {
+    try {
+      const audio = new Audio(animalAudioFiles[animal]);
+      audio.play().catch(e => {
+        // Fallback to text-to-speech if audio file doesn't exist
+        tts(animalSounds[animal]);
+      });
+    } catch(e) {
+      // Fallback to text-to-speech if audio fails
+      tts(animalSounds[animal]);
+    }
+  }
   function post(msg){ parent.postMessage(msg,'*'); }
   function autoResize(){ const h=document.documentElement.scrollHeight; post({type:'resize', height:h}); }
   
@@ -36,7 +61,7 @@
     }
   }
   
-  window.g1 = { ANIMALS, animalSounds, tts, post, autoResize, updateCharacterState };
+  window.g1 = { ANIMALS, animalSounds, animalAudioFiles, tts, playAnimalSound, post, autoResize, updateCharacterState };
   window.addEventListener('load', autoResize);
   window.addEventListener('resize', autoResize);
 })();
