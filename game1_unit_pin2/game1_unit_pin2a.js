@@ -1,5 +1,5 @@
 (function(){
-  const ANIMALS = ['cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'];
+  const ANIMALS = ['cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken'];
   const animalSounds = { 
     cat: 'meow', 
     dog: 'woof', 
@@ -9,8 +9,7 @@
     farm: 'farm sounds', 
     cow: 'moo', 
     duck: 'quack', 
-    chicken: 'cluck cluck', 
-    mouse: 'squeak' 
+    chicken: 'cluck cluck'
   };
   
   const animalAudioFiles = {
@@ -22,8 +21,7 @@
     farm: '../assets/sounds/mixkit-farm-animals-in-the-morning-7.mp3',
     cow: '../assets/sounds/mixkit-cow-moo-in-the-barn-1751.wav',
     duck: '../assets/sounds/duck-quacking-37392.mp3',
-    chicken: '../assets/sounds/mixkit-chickens-clucking-short-1772.wav',
-    mouse: '../assets/sounds/mouse-36220.mp3'
+    chicken: '../assets/sounds/mixkit-chickens-clucking-short-1772.wav'
   };
   
   function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=0.95; u.pitch=1; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }

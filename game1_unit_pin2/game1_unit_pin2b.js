@@ -15,10 +15,10 @@
   let countdownTimer = null;
   let countdownSeconds = 7;
   
-  // Predefined turn order for 20 variations
+  // Predefined turn order for 18 variations (removed mouse)
   const turnOrder = [
-    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse',
-    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'
+    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken',
+    'cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken'
   ];
 
   function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
@@ -79,7 +79,7 @@
     stopAllAudio();
     
     turnCount++;
-    if (turnCount > 20) {
+    if (turnCount > 18) {
       // Game completed - send completion message
       post({type: 'game:complete', score: turnCount});
       return;
