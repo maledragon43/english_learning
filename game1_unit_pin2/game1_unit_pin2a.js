@@ -14,23 +14,31 @@
   };
   
   const animalAudioFiles = {
-    cat: '../assets/sounds/cat.mp3',
-    dog: '../assets/sounds/dog.mp3', 
-    tractor: '../assets/sounds/tractor.mp3',
-    horse: '../assets/sounds/horse.mp3',
-    pig: '../assets/sounds/pig.mp3',
-    farm: '../assets/sounds/farm.mp3',
-    cow: '../assets/sounds/cow.mp3',
-    duck: '../assets/sounds/duck.mp3',
-    chicken: '../assets/sounds/chicken.mp3',
-    mouse: '../assets/sounds/mouse.mp3'
+    cat: '../assets/sounds/mixkit-sweet-kitty-meow-93.wav',
+    dog: '../assets/sounds/mixkit-dog-barking-twice-1.wav', 
+    tractor: '../assets/sounds/tractor-slowly-passing-by-409413.mp3',
+    horse: '../assets/sounds/mixkit-intense-horse-stallion-neigh-76.wav',
+    pig: '../assets/sounds/mixkit-pig-grunting-3.wav',
+    farm: '../assets/sounds/mixkit-farm-animals-in-the-morning-7.mp3',
+    cow: '../assets/sounds/mixkit-cow-moo-in-the-barn-1751.wav',
+    duck: '../assets/sounds/duck-quacking-37392.mp3',
+    chicken: '../assets/sounds/mixkit-chickens-clucking-short-1772.wav',
+    mouse: '../assets/sounds/mouse-36220.mp3'
   };
   
   function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=0.95; u.pitch=1; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
+  let currentAudio = null;
+  
   function playAnimalSound(animal) {
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+    
     try {
-      const audio = new Audio(animalAudioFiles[animal]);
-      audio.play().catch(e => {
+      currentAudio = new Audio(animalAudioFiles[animal]);
+      currentAudio.play().catch(e => {
         // Fallback to text-to-speech if audio file doesn't exist
         tts(animalSounds[animal]);
       });
@@ -39,6 +47,16 @@
       tts(animalSounds[animal]);
     }
   }
+  function stopAllAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+    // Also stop any text-to-speech
+    speechSynthesis.cancel();
+  }
+  
   function post(msg){ parent.postMessage(msg,'*'); }
   function autoResize(){ const h=document.documentElement.scrollHeight; post({type:'resize', height:h}); }
   
@@ -61,7 +79,7 @@
     }
   }
   
-  window.g1 = { ANIMALS, animalSounds, animalAudioFiles, tts, playAnimalSound, post, autoResize, updateCharacterState };
+  window.g1 = { ANIMALS, animalSounds, animalAudioFiles, tts, playAnimalSound, stopAllAudio, post, autoResize, updateCharacterState };
   window.addEventListener('load', autoResize);
   window.addEventListener('resize', autoResize);
 })();

@@ -1,5 +1,5 @@
 (function(){
-  const { ANIMALS, animalSounds, playAnimalSound, tts, post, autoResize, updateCharacterState } = window.g1;
+  const { ANIMALS, animalSounds, playAnimalSound, stopAllAudio, tts, post, autoResize, updateCharacterState } = window.g1;
   const SPEED_MS = 1000;
   const row1 = document.getElementById('row1');
   const row2 = document.getElementById('row2');
@@ -75,6 +75,9 @@
   }
 
   function startNewTurn(){
+    // Stop any currently playing audio
+    stopAllAudio();
+    
     turnCount++;
     if (turnCount > 20) {
       // Game completed - send completion message
