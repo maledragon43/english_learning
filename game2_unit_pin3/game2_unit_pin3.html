@@ -55,10 +55,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 80%;
+      width: 85%;
       gap: 2vw;
       flex-wrap: wrap;
-      height: 80%;
+      height: 85%;
     }
 
     .category-zone {
@@ -106,7 +106,7 @@
     .category-drop-area {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       align-items: flex-start;
       width: 100%;
@@ -159,6 +159,17 @@
       pointer-events: none;
     }
 
+    .animal-card.in-category {
+      width: 6vw;
+      height: 6vw;
+      min-width: 45px;
+      min-height: 45px;
+      max-width: 80px;
+      max-height: 80px;
+      cursor: default;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
     @media (max-width: 768px) {
       .category-zones {
         flex-direction: column;
@@ -198,12 +209,10 @@
           <div class="sorting-container">
             <div class="category-zones">
               <div id="farmCategory" class="category-zone" data-category="farm">
-                <h3>Farm Animals</h3>
                 <img src="../assets/images/farm.jpg" alt="Farm" class="category-image">
                 <div class="category-drop-area"></div>
               </div>
               <div id="wildCategory" class="category-zone" data-category="wild">
-                <h3>Wild Animals</h3>
                 <img src="../assets/images/zoo.jpg" alt="Zoo" class="category-image">
                 <div class="category-drop-area"></div>
               </div>

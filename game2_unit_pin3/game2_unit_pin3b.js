@@ -85,10 +85,24 @@
       // Move animal to category
       const dropArea = dropZone.querySelector('.category-drop-area');
       animalCard.style.opacity = '1';
-      dropArea.appendChild(animalCard);
       
-      // Remove from pool
-      animalCard.remove();
+      // Make animal smaller when in category
+      animalCard.classList.add('in-category');
+      animalCard.style.width = '6vw';
+      animalCard.style.height = '6vw';
+      animalCard.style.minWidth = '45px';
+      animalCard.style.minHeight = '45px';
+      animalCard.style.maxWidth = '80px';
+      animalCard.style.maxHeight = '80px';
+      animalCard.style.cursor = 'default';
+      animalCard.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2)';
+      
+      // Remove drag functionality
+      animalCard.draggable = false;
+      animalCard.removeEventListener('dragstart', handleDragStart);
+      animalCard.removeEventListener('dragend', handleDragEnd);
+      
+      dropArea.appendChild(animalCard);
       
       turnCount++;
       
