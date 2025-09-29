@@ -12,18 +12,156 @@
     .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
     
     .game-top-text {
-      font-size: 24px !important;
-      line-height: 1.3;
-      padding: 12px 20px;
+      font-size: clamp(16px, 3.5vw, 28px) !important;
+      line-height: 1.2;
+      padding: 8px 16px;
       word-wrap: break-word;
       word-break: break-word;
       max-width: 100%;
       white-space: normal;
       text-align: center;
-      min-height: 50px;
+      min-height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
+      font-weight: 500;
+    }
+
+    .game-top-instruction-inner {
+      width: 100% !important;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .sorting-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1000px;
+      flex-grow: 1;
+      gap: 20px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .category-zones {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .category-zone {
+      flex: 1;
+      min-width: 280px;
+      background-color: #f0f0f0;
+      border: 3px dashed #ccc;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .category-zone.hover {
+      border-color: #66bb6a;
+      background-color: #e8f5e9;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .category-zone h3 {
+      margin-top: 0;
+      color: #333;
+      font-size: clamp(18px, 3.5vw, 28px);
+      margin-bottom: 10px;
+    }
+
+    .category-image {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .category-drop-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      flex-grow: 1;
+      min-height: 100px;
+    }
+
+    .animal-pool {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      border: 2px solid #ddd;
+      border-radius: 15px;
+      padding: 15px;
+      gap: 15px;
+      width: 100%;
+      min-height: 150px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .animal-card {
+      width: 80px;
+      height: 80px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.1s ease-in-out;
+      position: relative;
+    }
+
+    .animal-card:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    .animal-card img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .category-zones {
+        flex-direction: column;
+        align-items: center;
+      }
+      .category-zone {
+        width: 90%;
+        min-width: unset;
+      }
+      .animal-pool {
+        padding: 10px;
+        gap: 10px;
+      }
+      .animal-card {
+        width: 70px;
+        height: 70px;
+      }
     }
   </style>
 </head>
@@ -34,7 +172,7 @@
         <!-- Top dashboard -->
         <div class="game-top-instruction">
           <div class="game-top-instruction-inner">
-            <div id="statusBanner" class="game-top-text">BRAINY SORTING - COMING SOON</div>
+            <div id="statusBanner" class="game-top-text">Sort the animals into their correct categories!</div>
           </div>
         </div>
 
@@ -43,10 +181,22 @@
 
         <!-- Problem area -->
         <div class="game-problem-area">
-          <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
-            <p>This game will be a drag and drop category sorting game.</p>
-            <p>Farm Animals vs Wild Animals</p>
-            <p>Coming soon!</p>
+          <div class="sorting-container">
+            <div class="category-zones">
+              <div id="farmCategory" class="category-zone" data-category="farm">
+                <h3>Farm Animals</h3>
+                <img src="../assets/images/farm.jpg" alt="Farm" class="category-image">
+                <div class="category-drop-area"></div>
+              </div>
+              <div id="wildCategory" class="category-zone" data-category="wild">
+                <h3>Wild Animals</h3>
+                <img src="../assets/images/zoo.jpg" alt="Zoo" class="category-image">
+                <div class="category-drop-area"></div>
+              </div>
+            </div>
+            <div id="animalPool" class="animal-pool">
+              <!-- Animal cards will be inserted here by JavaScript -->
+            </div>
           </div>
         </div>
       </div>
