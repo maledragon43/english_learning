@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 3 · Colour It Right</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+    
+    .game-top-text {
+      font-size: clamp(18px, 4vw, 34px) !important;
+      line-height: 1.3;
+      padding: 12px 20px;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 100%;
+      white-space: normal;
+      text-align: center;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-page">
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="statusBanner" class="game-top-text">COLOUR IT RIGHT - COMING SOON</div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
+            <p>This game will be a coloring game.</p>
+            <p>3 slides: Sea Animals, Farm Animals, Wild Animals</p>
+            <p>11 colors: white, black, grey, yellow, orange, pink, red, purple, blue, green, brown</p>
+            <p>Listen to instructions like 'Colour the shell purple'</p>
+            <p>Some animals can be colored in 2 colors.</p>
+            <p>Coming soon!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./game3_unit_pin4a.js"></script>
+  <script src="./game3_unit_pin4b.js"></script>
+</body>
+</html>
