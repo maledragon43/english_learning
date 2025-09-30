@@ -3,6 +3,42 @@
   const FARM_ANIMALS = ['cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'];
   const WILD_ANIMALS = ['crocodile', 'tiger', 'elephant', 'monkey', 'bear', 'frog', 'bird', 'zebra', 'lion', 'giraffe'];
   
+  // Balloon image mappings
+  const BALLOON_IMAGES = {
+    // Sea animals
+    'shells': 'shells_balloon.png',
+    'turtle': 'turtle_balloon.png',
+    'dolphin': 'dolphin_balloon.png',
+    'jellyfish': 'jellyfish_balloon.png',
+    'seahorse': 'seahorse_balloon.png',
+    'starfish': 'starfish_balloon.png',
+    'crab': 'crab_balloon.png',
+    'shark': 'shark_balloon.png',
+    'penguin': 'penguin_balloon.png',
+    'clownfish': 'clownfish_balloon.png',
+    
+    // Farm animals
+    'cat': 'black-cat_balloon.png',
+    'dog': 'black-dog_balloon.png',
+    'horse': 'white-horse_balloon.png',
+    'pig': 'pig_balloon.png',
+    'cow': 'black-and-white-cat_balloon.png', // Using cat as cow placeholder
+    'duck': 'duck_balloon.png',
+    'chicken': 'red-bird_balloon.png', // Using bird as chicken placeholder
+    'mouse': 'mouse_balloon.png',
+    
+    // Wild animals
+    'crocodile': 'crocodile_balloon.png',
+    'tiger': 'tiger_balloon.png',
+    'elephant': 'blue-elephant_balloon.png',
+    'monkey': 'black-monkey_balloon.png',
+    'bear': 'black-bear_balloon.png',
+    'frog': 'green-frog_balloon.png',
+    'bird': 'orange-bird_balloon.png',
+    'zebra': 'zebra_balloon.png',
+    'lion': 'lion_balloon.png'
+  };
+  
   function post(m){ parent.postMessage(m,'*'); }
   function autoResize(){ const h=document.documentElement.scrollHeight; post({type:'resize', height:h}); }
   function tts(text){ try{ const u=new SpeechSynthesisUtterance(text); u.rate=.95; u.lang='en-US'; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
@@ -26,7 +62,7 @@
     }
   }
   
-  window.g2 = { SEA_ANIMALS, FARM_ANIMALS, WILD_ANIMALS, post, autoResize, tts, updateCharacterState };
+  window.g2 = { SEA_ANIMALS, FARM_ANIMALS, WILD_ANIMALS, BALLOON_IMAGES, post, autoResize, tts, updateCharacterState };
   window.addEventListener('load', autoResize);
   window.addEventListener('resize', autoResize);
 })();

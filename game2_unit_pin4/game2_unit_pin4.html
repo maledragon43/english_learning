@@ -25,6 +25,46 @@
       align-items: center;
       justify-content: center;
     }
+
+    .balloon-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2vw;
+      padding: 2vw;
+      width: 100%;
+      min-height: 300px;
+    }
+
+    .balloon {
+      width: 24vw;
+      height: 30vw;
+      min-width: 160px;
+      min-height: 200px;
+      max-width: 300px;
+      max-height: 360px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .balloon:hover {
+      transform: scale(1.05);
+    }
+
+    .balloon.burst {
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.5s ease;
+    }
+
+    .balloon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -34,7 +74,7 @@
         <!-- Top dashboard -->
         <div class="game-top-instruction">
           <div class="game-top-instruction-inner">
-            <div id="statusBanner" class="game-top-text">BALLOON BURST - COMING SOON</div>
+            <div id="statusBanner" class="game-top-text">Click the correct balloon!</div>
           </div>
         </div>
 
@@ -43,11 +83,8 @@
 
         <!-- Problem area -->
         <div class="game-problem-area">
-          <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
-            <p>This game will be a balloon burst game with sea animals.</p>
-            <p>Sea Animals: shells, turtle, dolphin, jellyfish, seahorse, starfish, crab, shark, penguin, clownfish</p>
-            <p>Mixed with farm and wild animals from previous lessons.</p>
-            <p>Coming soon!</p>
+          <div class="balloon-stage" id="balloonStage">
+            <!-- Balloons will be inserted here by JavaScript -->
           </div>
         </div>
       </div>
