@@ -100,11 +100,10 @@
     coloringArea.innerHTML = '';
     currentAnimals = [];
     
-    // Create animals for current turn
+    // Create ALL animals for current turn
     const turnData = GAME_TURNS[currentTurn];
-    const animalsToShow = turnData.animals.slice(0, 8); // Show 8 animals
     
-    animalsToShow.forEach(animal => {
+    turnData.animals.forEach(animal => {
       const animalElement = createAnimalElement(animal, turnData.category);
       coloringArea.appendChild(animalElement);
       currentAnimals.push(animalElement);
