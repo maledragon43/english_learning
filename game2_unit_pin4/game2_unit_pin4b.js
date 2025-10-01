@@ -120,7 +120,7 @@
     });
     
     // Update banner
-    banner.textContent = `Find the ${currentTarget.toUpperCase()} balloon!`;
+    banner.textContent = currentTarget.toUpperCase();
     tts(`Find the ${currentTarget} balloon!`);
     
     updateCharacterState('thinking');
