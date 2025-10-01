@@ -83,23 +83,34 @@
     // Get target animal
     currentTarget = turnOrder[turnCount];
     
-    // Create 5 balloons: 1 target + 4 distractors
+    // Create exactly 5 balloons: 1 target + 4 distractors
     const balloons = [currentTarget];
     
-    // Add 2 random sea animals (if target is not sea)
-    if (!SEA_ANIMALS.includes(currentTarget)) {
+    // Add distractors based on target category
+    if (SEA_ANIMALS.includes(currentTarget)) {
+      // If target is sea animal, add 2 random sea animals + 2 random from other categories
+      const otherSeaAnimals = SEA_ANIMALS.filter(animal => animal !== currentTarget);
+      const randomSeaAnimals = shuffle([...otherSeaAnimals]).slice(0, 2);
+      balloons.push(...randomSeaAnimals);
+      
+      // Add 2 random animals from farm/wild categories
+      const farmAnimal = getRandomAnimals('farm', 1)[0];
+      const wildAnimal = getRandomAnimals('wild', 1)[0];
+      balloons.push(farmAnimal, wildAnimal);
+    } else {
+      // If target is not sea animal, add 2 random sea animals + 2 random from other categories
       const seaAnimals = getRandomAnimals('sea', 2);
       balloons.push(...seaAnimals);
+      
+      // Add 2 random animals from other categories
+      const otherCategories = ['farm', 'wild'];
+      otherCategories.forEach(category => {
+        const animals = getRandomAnimals(category, 1);
+        balloons.push(...animals);
+      });
     }
     
-    // Add 2 random animals from other categories
-    const otherCategories = ['farm', 'wild'];
-    otherCategories.forEach(category => {
-      const animals = getRandomAnimals(category, 1);
-      balloons.push(...animals);
-    });
-    
-    // Shuffle and take 4 more to make 5 total
+    // Ensure we have exactly 5 balloons
     const shuffledBalloons = shuffle(balloons).slice(0, 5);
     
     // Create balloon elements

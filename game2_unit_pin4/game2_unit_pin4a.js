@@ -1,9 +1,9 @@
 (function(){
   const SEA_ANIMALS = ['shells', 'turtle', 'dolphin', 'jellyfish', 'seahorse', 'starfish', 'crab', 'shark', 'penguin', 'clownfish'];
-  const FARM_ANIMALS = ['cat', 'dog', 'tractor', 'horse', 'pig', 'farm', 'cow', 'duck', 'chicken', 'mouse'];
-  const WILD_ANIMALS = ['crocodile', 'tiger', 'elephant', 'monkey', 'bear', 'frog', 'bird', 'zebra', 'lion', 'giraffe'];
+  const FARM_ANIMALS = ['cat', 'dog', 'horse', 'pig', 'cow', 'duck', 'chicken', 'mouse'];
+  const WILD_ANIMALS = ['crocodile', 'tiger', 'elephant', 'monkey', 'bear', 'frog', 'bird', 'zebra', 'lion'];
   
-  // Balloon image mappings
+  // Balloon image mappings - ONLY from balloons_animal folder
   const BALLOON_IMAGES = {
     // Sea animals
     'shells': 'shells_balloon.png',
@@ -22,9 +22,9 @@
     'dog': 'black-dog_balloon.png',
     'horse': 'white-horse_balloon.png',
     'pig': 'pig_balloon.png',
-    'cow': 'black-and-white-cat_balloon.png', // Using cat as cow placeholder
+    'cow': 'black-and-white-cat_balloon.png', // Using available cat balloon
     'duck': 'duck_balloon.png',
-    'chicken': 'red-bird_balloon.png', // Using bird as chicken placeholder
+    'chicken': 'red-bird_balloon.png', // Using available bird balloon
     'mouse': 'mouse_balloon.png',
     
     // Wild animals
