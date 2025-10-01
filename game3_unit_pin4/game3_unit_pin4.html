@@ -44,6 +44,63 @@
       background-attachment: fixed;
       background-size: 100% 300%;
     }
+
+    .coloring-area {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      min-height: 300px;
+      background: white;
+    }
+
+    .animal-to-color {
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .animal-to-color:hover {
+      transform: scale(1.05);
+    }
+
+    .animal-to-color img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .color-palette {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background: #f0f0f0;
+      border-top: 2px solid #ddd;
+    }
+
+    .color-selector {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .color-selector:hover {
+      transform: scale(1.1);
+    }
+
+    .color-selector.selected {
+      border-color: #333;
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -62,13 +119,23 @@
 
         <!-- Problem area -->
         <div class="game-problem-area">
-          <div style="text-align: center; padding: 50px; font-size: 18px; color: #666;">
-            <p>This game will be a coloring game.</p>
-            <p>3 slides: Sea Animals, Farm Animals, Wild Animals</p>
-            <p>11 colors: white, black, grey, yellow, orange, pink, red, purple, blue, green, brown</p>
-            <p>Listen to instructions like 'Colour the shell purple'</p>
-            <p>Some animals can be colored in 2 colors.</p>
-            <p>Coming soon!</p>
+          <div class="coloring-area" id="coloringArea">
+            <!-- Animals will be inserted here by JavaScript -->
+          </div>
+          
+          <!-- Color Palette -->
+          <div class="color-palette" id="colorPalette">
+            <div class="color-selector" data-color="red" style="background-color: #ff0000;"></div>
+            <div class="color-selector" data-color="yellow" style="background-color: #ffff00;"></div>
+            <div class="color-selector" data-color="orange" style="background-color: #ffa500;"></div>
+            <div class="color-selector" data-color="blue" style="background-color: #0000ff;"></div>
+            <div class="color-selector" data-color="purple" style="background-color: #800080;"></div>
+            <div class="color-selector" data-color="green" style="background-color: #008000;"></div>
+            <div class="color-selector" data-color="pink" style="background-color: #ffc0cb;"></div>
+            <div class="color-selector" data-color="white" style="background-color: #ffffff; border: 2px solid #ccc;"></div>
+            <div class="color-selector" data-color="grey" style="background-color: #808080;"></div>
+            <div class="color-selector" data-color="black" style="background-color: #000000;"></div>
+            <div class="color-selector" data-color="brown" style="background-color: #8b4513;"></div>
           </div>
         </div>
       </div>
