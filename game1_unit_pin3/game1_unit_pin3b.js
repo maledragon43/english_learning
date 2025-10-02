@@ -104,7 +104,7 @@
     currentSentence = sentenceData[turnCount];
     currentOptions = [...currentSentence.options];
     
-    banner.textContent = currentSentence.sentence;
+    banner.textContent = currentSentence.sentence.toUpperCase();
     updateCharacterState('thinking');
     
     // Play the sentence

@@ -135,7 +135,7 @@
     animalPool.appendChild(animalCard);
     
     // Update banner
-    banner.textContent = `correct category?`;
+    banner.textContent = `CORRECT CATEGORY?`;
     tts(`Sort the ${animal} into the correct category!`);
     
     updateCharacterState('thinking');
