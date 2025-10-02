@@ -10,6 +10,43 @@
   let selectedColor = null;
   let currentAnimals = [];
   
+  // Predefined random positions for each animal type (relative to canvas top-left)
+  const animalPositions = {
+    // Sea animals positions
+    'shell': { left: 60, top: 50 },
+    'turtle': { left: 60, top: 75 },
+    'dolphin': { left: 55, top: 10 },
+    'jellyfish': { left: 45, top: 45 },
+    'seahorse': { left: 80, top: 50 },
+    'starfish': { left: 40, top: 15 },
+    'crab': { left: 30, top: 75 },
+    'shark': { left: 10, top: 30 },
+    'penguin': { left: 15, top: 70 },
+    'clownfish': { left: 10, top: 20 },
+    
+    // Farm animals positions
+    'cat': { left: 16, top: 19 },
+    'dog': { left: 28, top: 16 },
+    'horse': { left: 9, top: 12 },
+    'pig': { left: 24, top: 24 },
+    'cow': { left: 60, top: 20 },
+    'duck': { left: 20, top: 14 },
+    'chicken': { left: 14, top: 26 },
+    'mouse': { left: 32, top: 20 },
+    
+    // Wild animals positions
+    'tiger': { left: 17, top: 17 },
+    'elephant': { left: 40, top: 18 },
+    'monkey': { left: 26, top: 12 },
+    'bear': { left: 11, top: 24 },
+    'frog': { left: 19, top: 16 },
+    'bird': { left: 23, top: 60 },
+    'zebra': { left: 13, top: 20 },
+    'lion': { left: 29, top: 18 },
+    'giraffe': { left: 70, top: 10 },
+    'fish': { left: 21, top: 22 }
+  };
+  
   function getAnimalImagePath(animal, category, isColored = false) {
     const colorSuffix = isColored ? `_${selectedColor}` : '';
     return `../assets/images/color it right/color me ${category} animals/${animal}${colorSuffix}.png`;
@@ -105,6 +142,14 @@
     
     turnData.animals.forEach(animal => {
       const animalElement = createAnimalElement(animal, turnData.category);
+      
+      // Use predefined position for this animal
+      const position = animalPositions[animal];
+      if (position) {
+        animalElement.style.left = position.left + '%';
+        animalElement.style.top = position.top + '%';
+      }
+      
       coloringArea.appendChild(animalElement);
       currentAnimals.push(animalElement);
     });
