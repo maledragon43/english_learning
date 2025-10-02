@@ -7,22 +7,6 @@
   // Game turns data - color ALL animals in each turn
   const GAME_TURNS = [
     {
-      category: 'sea',
-      animals: SEA_ANIMALS,
-      instructions: [
-        { animal: 'shell', color: 'purple', text: 'Colour the shell purple!' },
-        { animal: 'turtle', color: 'green', text: 'Colour the turtle green!' },
-        { animal: 'dolphin', color: 'blue', text: 'Colour the dolphin blue!' },
-        { animal: 'jellyfish', color: 'pink', text: 'Colour the jellyfish pink!' },
-        { animal: 'seahorse', color: 'brown', text: 'Colour the seahorse brown!' },
-        { animal: 'starfish', color: 'yellow', text: 'Colour the starfish yellow!' },
-        { animal: 'crab', color: 'red', text: 'Colour the crab red!' },
-        { animal: 'shark', color: 'grey', text: 'Colour the shark grey!' },
-        { animal: 'penguin', color: 'black', text: 'Colour the penguin black!' },
-        { animal: 'clownfish', color: 'orange', text: 'Colour the clownfish orange!' }
-      ]
-    },
-    {
       category: 'wild',
       animals: WILD_ANIMALS,
       instructions: [
@@ -50,7 +34,25 @@
         { animal: 'chicken', color: 'yellow', text: 'Colour the chicken yellow!' },
         { animal: 'mouse', color: 'grey', text: 'Colour the mouse grey!' }
       ]
-    }
+    },
+    
+    {
+      category: 'sea',
+      animals: SEA_ANIMALS,
+      instructions: [
+        { animal: 'shell', color: 'purple', text: 'Colour the shell purple!' },
+        { animal: 'turtle', color: 'green', text: 'Colour the turtle green!' },
+        { animal: 'dolphin', color: 'blue', text: 'Colour the dolphin blue!' },
+        { animal: 'jellyfish', color: 'pink', text: 'Colour the jellyfish pink!' },
+        { animal: 'seahorse', color: 'brown', text: 'Colour the seahorse brown!' },
+        { animal: 'starfish', color: 'yellow', text: 'Colour the starfish yellow!' },
+        { animal: 'crab', color: 'red', text: 'Colour the crab red!' },
+        { animal: 'shark', color: 'grey', text: 'Colour the shark grey!' },
+        { animal: 'penguin', color: 'black', text: 'Colour the penguin black!' },
+        { animal: 'clownfish', color: 'orange', text: 'Colour the clownfish orange!' }
+      ]
+    }   
+    
   ];
   
   function post(m){ parent.postMessage(m,'*'); }

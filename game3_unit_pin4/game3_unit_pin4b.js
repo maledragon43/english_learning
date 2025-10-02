@@ -25,26 +25,27 @@
     'clownfish': { left: 10, top: 20 },
     
     // Farm animals positions
-    'cat': { left: 16, top: 19 },
-    'dog': { left: 28, top: 16 },
-    'horse': { left: 9, top: 12 },
-    'pig': { left: 24, top: 24 },
-    'cow': { left: 60, top: 20 },
-    'duck': { left: 20, top: 14 },
-    'chicken': { left: 14, top: 26 },
-    'mouse': { left: 32, top: 20 },
+    'cat': { left: 60, top: 50 },
+    'dog': { left: 70, top: 70 },
+    'horse': { left: 70, top: 12 },
+    'pig': { left: 45, top: 45 },
+    'cow': { left: 13, top: 30 },
+    'duck': { left: 40, top: 14 },
+    'chicken': { left: 30, top: 75 },
+    'mouse': { left: 10, top: 10 },
     
     // Wild animals positions
-    'tiger': { left: 17, top: 17 },
-    'elephant': { left: 40, top: 18 },
-    'monkey': { left: 26, top: 12 },
-    'bear': { left: 11, top: 24 },
-    'frog': { left: 19, top: 16 },
-    'bird': { left: 23, top: 60 },
-    'zebra': { left: 13, top: 20 },
-    'lion': { left: 29, top: 18 },
-    'giraffe': { left: 70, top: 10 },
-    'fish': { left: 21, top: 22 }
+    'crocodile': {left: 10, top: 10},
+    'tiger': { left: 60, top: 60 },
+    'elephant': { left: 70, top: 15 },
+    'monkey': { left: 55, top: 10 },
+    'bear': { left: 35, top: 45 },
+    'frog': { left: 80, top: 74 },
+    'bird': { left: 40, top: 15 },
+    'zebra': { left: 25, top: 75 },
+    'lion': { left: 10, top: 40 },
+    'giraffe': { left: 15, top: 70 },
+    'fish': { left: 10, top: 20 }
   };
   
   function getAnimalImagePath(animal, category, isColored = false) {
