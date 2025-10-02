@@ -10,45 +10,45 @@
       category: 'sea',
       animals: SEA_ANIMALS,
       instructions: [
-        { animal: 'shell', color: 'purple', text: 'Colour the shell purple!' },
-        { animal: 'turtle', color: 'green', text: 'Colour the turtle green!' },
-        { animal: 'dolphin', color: 'blue', text: 'Colour the dolphin blue!' },
-        { animal: 'jellyfish', color: 'pink', text: 'Colour the jellyfish pink!' },
-        { animal: 'seahorse', color: 'brown', text: 'Colour the seahorse brown!' },
-        { animal: 'starfish', color: 'yellow', text: 'Colour the starfish yellow!' },
-        { animal: 'crab', color: 'red', text: 'Colour the crab red!' },
-        { animal: 'shark', color: 'grey', text: 'Colour the shark grey!' },
-        { animal: 'penguin', color: 'black', text: 'Colour the penguin black!' },
-        { animal: 'clownfish', color: 'orange', text: 'Colour the clownfish orange!' }
+        { animal: 'shell', color: 'purple', text: 'COLOUR THE SHELL PURPLE!' },
+        { animal: 'turtle', color: 'green', text: 'COLOUR THE TURTLE GREEN!' },
+        { animal: 'dolphin', color: 'blue', text: 'COLOUR THE DOLPHIN BLUE!' },
+        { animal: 'jellyfish', color: 'pink', text: 'COLOUR THE JELLYFISH PINK!' },
+        { animal: 'seahorse', color: 'brown', text: 'COLOUR THE SEAHORSE BROWN!' },
+        { animal: 'starfish', color: 'yellow', text: 'COLOUR THE STARFISH YELLOW!' },
+        { animal: 'crab', color: 'red', text: 'COLOUR THE CRAB RED!' },
+        { animal: 'shark', color: 'grey', text: 'COLOUR THE SHARK GREY!' },
+        { animal: 'penguin', color: 'black', text: 'COLOUR THE PENGUIN BLACK!' },
+        { animal: 'clownfish', color: 'orange', text: 'COLOUR THE CLOWNFISH ORANGE!' }
       ]
     },
     {
       category: 'wild',
       animals: WILD_ANIMALS,
       instructions: [
-        { animal: 'crocodile', color: 'green', text: 'Colour the crocodile green!' },
-        { animal: 'tiger', color: 'orange', text: 'Colour the tiger orange!' },
-        { animal: 'elephant', color: 'grey', text: 'Colour the elephant grey!' },
-        { animal: 'monkey', color: 'black', text: 'Colour the monkey black!' },
-        { animal: 'bear', color: 'brown', text: 'Colour the bear brown!' },
-        { animal: 'frog', color: 'blue', text: 'Colour the frog blue!' },
-        { animal: 'bird', color: 'purple', text: 'Colour the bird purple!' },
-        { animal: 'zebra', color: 'black', text: 'Colour the zebra black!' },
-        { animal: 'lion', color: 'yellow', text: 'Colour the lion yellow!' }
+        { animal: 'crocodile', color: 'green', text: 'COLOUR THE CROCODILE GREEN!' },
+        { animal: 'tiger', color: 'orange', text: 'COLOUR THE TIGER ORANGE!' },
+        { animal: 'elephant', color: 'grey', text: 'COLOUR THE ELEPHANT GREY!' },
+        { animal: 'monkey', color: 'black', text: 'COLOUR THE MONKEY BLACK!' },
+        { animal: 'bear', color: 'brown', text: 'COLOUR THE BEAR BROWN!' },
+        { animal: 'frog', color: 'blue', text: 'COLOUR THE FROG BLUE!' },
+        { animal: 'bird', color: 'purple', text: 'COLOUR THE BIRD PURPLE!' },
+        { animal: 'zebra', color: 'black', text: 'COLOUR THE ZEBRA BLACK!' },
+        { animal: 'lion', color: 'yellow', text: 'COLOUR THE LION YELLOW!' }
       ]
     },
     {
       category: 'farm',
       animals: FARM_ANIMALS,
       instructions: [
-        { animal: 'cat', color: 'blue', text: 'Colour the cat blue!' },
-        { animal: 'dog', color: 'orange', text: 'Colour the dog orange!' },
-        { animal: 'horse', color: 'brown', text: 'Colour the horse brown!' },
-        { animal: 'pig', color: 'pink', text: 'Colour the pig pink!' },
-        { animal: 'cow', color: 'black', text: 'Colour the cow black!' },
-        { animal: 'duck', color: 'green', text: 'Colour the duck green!' },
-        { animal: 'chicken', color: 'yellow', text: 'Colour the chicken yellow!' },
-        { animal: 'mouse', color: 'grey', text: 'Colour the mouse grey!' }
+        { animal: 'cat', color: 'blue', text: 'COLOUR THE CAT BLUE!' },
+        { animal: 'dog', color: 'orange', text: 'COLOUR THE DOG ORANGE!' },
+        { animal: 'horse', color: 'brown', text: 'COLOUR THE HORSE BROWN!' },
+        { animal: 'pig', color: 'pink', text: 'COLOUR THE PIG PINK!' },
+        { animal: 'cow', color: 'black', text: 'COLOUR THE COW BLACK!' },
+        { animal: 'duck', color: 'green', text: 'COLOUR THE DUCK GREEN!' },
+        { animal: 'chicken', color: 'yellow', text: 'COLOUR THE CHICKEN YELLOW!' },
+        { animal: 'mouse', color: 'grey', text: 'COLOUR THE MOUSE GREY!' }
       ]
     }    
   ];
