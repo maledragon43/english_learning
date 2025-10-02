@@ -36,12 +36,12 @@
     
     // Wild animals positions
     'crocodile': {left: 10, top: 10},
-    'tiger': { left: 60, top: 60 },
-    'elephant': { left: 70, top: 15 },
-    'monkey': { left: 55, top: 10 },
-    'bear': { left: 35, top: 45 },
+    'tiger': { left: 50, top: 60 },
+    'elephant': { left: 55, top: 12 },
+    'monkey': { left: 45, top: 10 },
+    'bear': { left: 32, top: 45 },
     'frog': { left: 80, top: 74 },
-    'bird': { left: 40, top: 15 },
+    'bird': { left: 30, top: 15 },
     'zebra': { left: 25, top: 75 },
     'lion': { left: 10, top: 40 },
     'giraffe': { left: 15, top: 70 },
