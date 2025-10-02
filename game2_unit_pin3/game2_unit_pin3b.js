@@ -45,20 +45,10 @@
   function handleDragStart(e) {
     currentAnimal = e.target;
     e.target.style.opacity = '0.5';
-    
-    // Add hover effect to valid drop zones
-    const category = e.target.getAttribute('data-category');
-    if (category === 'farm') {
-      farmCategory.classList.add('hover');
-    } else {
-      wildCategory.classList.add('hover');
-    }
   }
   
   function handleDragEnd(e) {
     e.target.style.opacity = '1';
-    farmCategory.classList.remove('hover');
-    wildCategory.classList.remove('hover');
   }
   
   function handleDragOver(e) {
@@ -109,9 +99,7 @@
       if (turnCount >= 20) {
         banner.textContent = 'WELL DONE! All animals sorted!';
         tts('Well done! All animals sorted!');
-        setTimeout(() => {
-          setup();
-        }, 3000);
+        // Game ends here - no automatic restart
       } else {
         setTimeout(() => {
           startNewTurn();
@@ -129,9 +117,6 @@
         updateCharacterState('thinking');
       }, 1500);
     }
-    
-    farmCategory.classList.remove('hover');
-    wildCategory.classList.remove('hover');
   }
   
   function startNewTurn() {
