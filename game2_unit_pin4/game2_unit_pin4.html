@@ -30,13 +30,20 @@
 
     .balloon-stage {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
       gap: 2vw;
       padding: 5vw;
       width: 100%;
       min-height: 300px;
+    }
+
+    .balloon-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2vw;
     }
 
     .balloon {
@@ -87,8 +94,13 @@
 
         <!-- Problem area -->
         <div class="game-problem-area">
-          <div class="balloon-stage" id="balloonStage">
-            <!-- Balloons will be inserted here by JavaScript -->
+          <div class="balloon-stage">
+            <div class="balloon-row" id="balloonRow1">
+              <!-- First 3 balloons will be inserted here by JavaScript -->
+            </div>
+            <div class="balloon-row" id="balloonRow2">
+              <!-- Last 2 balloons will be inserted here by JavaScript -->
+            </div>
           </div>
         </div>
       </div>

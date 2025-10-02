@@ -1,7 +1,8 @@
 (function(){
   const { SEA_ANIMALS, FARM_ANIMALS, WILD_ANIMALS, BALLOON_IMAGES, post, autoResize, tts, updateCharacterState } = window.g2;
   
-  const balloonStage = document.getElementById('balloonStage');
+  const balloonRow1 = document.getElementById('balloonRow1');
+  const balloonRow2 = document.getElementById('balloonRow2');
   const banner = document.getElementById('statusBanner');
   
   let currentTarget = null;
@@ -78,7 +79,8 @@
     if (turnCount >= 20) return;
     
     // Clear previous balloons
-    balloonStage.innerHTML = '';
+    balloonRow1.innerHTML = '';
+    balloonRow2.innerHTML = '';
     
     // Get target animal
     currentTarget = turnOrder[turnCount];
@@ -113,10 +115,16 @@
     // Ensure we have exactly 5 balloons
     const shuffledBalloons = shuffle(balloons).slice(0, 5);
     
-    // Create balloon elements
-    shuffledBalloons.forEach(animal => {
+    // Create balloon elements and distribute them
+    shuffledBalloons.forEach((animal, index) => {
       const balloon = createBalloon(animal);
-      balloonStage.appendChild(balloon);
+      if (index < 3) {
+        // First 3 balloons go to row 1
+        balloonRow1.appendChild(balloon);
+      } else {
+        // Last 2 balloons go to row 2
+        balloonRow2.appendChild(balloon);
+      }
     });
     
     // Update banner
