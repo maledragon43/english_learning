@@ -28,7 +28,7 @@
     currentQuestion = shuffledQuestions[turnCount];
     
     // Set the animal image
-    const imagePath = `../assets/images/animal_actions/${currentQuestion.image}`;
+    const imagePath = `../assets/images/Yes or No Game/${currentQuestion.image}`;
     animalImage.src = imagePath;
     animalImage.alt = `${currentQuestion.animal} ${currentQuestion.action}`;
     
@@ -75,6 +75,12 @@
       }
       
       tts('Correct!');
+      
+      // Move to next question after delay
+      setTimeout(() => {
+        turnCount++;
+        startNewQuestion();
+      }, 2000);
     } else {
       updateCharacterState('wrong');
       post({type: 'score:delta', value: -5});
@@ -88,13 +94,21 @@
       }
       
       tts('Try again!');
+      
+      // Stay on same question, re-enable buttons after delay
+      setTimeout(() => {
+        // Reset character state
+        updateCharacterState('thinking');
+        
+        // Re-enable buttons
+        yesButton.disabled = false;
+        noButton.disabled = false;
+        
+        // Remove feedback classes
+        yesButton.classList.remove('correct', 'wrong');
+        noButton.classList.remove('correct', 'wrong');
+      }, 2000);
     }
-    
-    // Move to next question after delay
-    setTimeout(() => {
-      turnCount++;
-      startNewQuestion();
-    }, 2000);
   }
 
   function setup() {

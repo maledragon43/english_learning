@@ -1,144 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 1 · Yes or No</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-        .yes-no-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 3vw;
-            padding: 2vw;
-            min-height: 60vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 1 · Yes or No</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+    
+    .game-top-text {
+      font-size: clamp(18px, 4vw, 30px) !important;
+      line-height: 1.3;
+      padding: 12px 20px;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 200%;
+      white-space: normal;
+      text-align: center;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .animal-image-container {
-            width: 25vw;
-            height: 25vw;
-            min-width: 200px;
-            min-height: 200px;
-            max-width: 300px;
-            max-height: 300px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .game-top-instruction {
+      width: 70% !important;
+      margin: 0 auto !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      left: 45%;
+    }
 
-        .animal-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-        }
+    .game-top-instruction-inner {
+      max-width: 100% !important;
+      padding: 12px 20px;
+      min-height: 60px;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 300%;
+    }
 
-        .button-container {
-            display: flex;
-            gap: 4vw;
-            justify-content: center;
-            align-items: center;
-        }
+    .yes-no-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3vw;
+      padding: 2vw;
+      min-height: 60vh;
+    }
 
-        .yes-button, .no-button {
-            width: 12vw;
-            height: 12vw;
-            min-width: 100px;
-            min-height: 100px;
-            max-width: 150px;
-            max-height: 150px;
-            border: none;
-            border-radius: 50%;
-            font-size: clamp(16px, 3vw, 24px);
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .animal-image-container {
+      width: 42vw;
+      height: 30vw;
+      min-width: 300px;
+      min-height: 300px;
+      max-width: 450px;
+      max-height: 450px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .yes-button {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-        }
+    .animal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
 
-        .yes-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
-        }
+    .button-container {
+      display: flex;
+      gap: 4vw;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .no-button {
-            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
-        }
+    .yes-button, .no-button {
+      width: 15vw;
+      height: 8vw;
+      min-width: 100px;
+      min-height: 50px;
+      max-width: 300px;
+      max-height: 150px;
+      border: none;
+      border-radius: 1rem;
+      font-size: clamp(16px, 3vw, 24px);
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .no-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
-        }
+    .yes-button {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
 
-        .yes-button:active, .no-button:active {
-            transform: scale(0.95);
-        }
+    .yes-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+    }
 
-        .game-top-text {
-            font-size: clamp(18px, 4vw, 36px) !important;
-            line-height: 1.3;
-            padding: 12px 24px;
-            word-wrap: break-word;
-            word-break: break-word;
-            max-width: 100%;
-            white-space: normal;
-            text-align: center;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
+    .no-button {
+      background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    }
 
-        .game-top-instruction-inner {
-            max-width: 80vw !important;
-            padding: 16px 24px !important;
-            min-height: 80px !important;
-        }
-    </style>
+    .no-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
+    }
+
+    .yes-button:active, .no-button:active {
+      transform: scale(0.95);
+    }
+  </style>
 </head>
 <body>
-    <div class="game-shell">
-        <div class="game-page">
-            <div class="game-board">
-                <div class="game-top-instruction">
-                    <div class="game-top-instruction-inner">
-                        <div class="game-top-text" id="statusBanner">LISTEN AND DECIDE</div>
-                    </div>
-                </div>
-                <div class="game-student">
-                    <img src="../assets/images/chars/squirrel think.png" alt="Character">
-                </div>
-                <div class="game-problem-area">
-                    <div class="yes-no-container">
-                        <div class="animal-image-container" id="animalImageContainer">
-                            <img id="animalImage" class="animal-image" src="" alt="Animal">
-                        </div>
-                        <div class="button-container">
-                            <button class="yes-button" id="yesButton">YES</button>
-                            <button class="no-button" id="noButton">NO</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="game-shell">
+    <div class="game-page">
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="statusBanner" class="game-top-text">LISTEN AND DECIDE</div>
+          </div>
         </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div class="yes-no-container">
+            <div class="animal-image-container" id="animalImageContainer">
+              <img id="animalImage" class="animal-image" src="" alt="Animal">
+            </div>
+            <div class="button-container">
+              <button class="yes-button" id="yesButton">YES</button>
+              <button class="no-button" id="noButton">NO</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="../script.js"></script>
-    <script src="game1_unit_pin5a.js"></script>
-    <script src="game1_unit_pin5b.js"></script>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="game1_unit_pin5a.js"></script>
+  <script src="game1_unit_pin5b.js"></script>
 </body>
 </html>
