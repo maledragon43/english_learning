@@ -35,8 +35,24 @@
     backgroundImage.src = slide.background;
     backgroundImage.alt = slide.title;
     
+    console.log(`Setting background image:`, slide.background);
+    
+    // Debug background image loading
+    backgroundImage.onload = function() {
+      console.log(`✅ Background image loaded successfully:`, slide.background);
+      backgroundImage.style.border = '3px solid green'; // Green border when loaded
+    };
+    backgroundImage.onerror = function() {
+      console.error(`❌ Failed to load background image:`, slide.background);
+      backgroundImage.style.border = '3px solid red'; // Red border when failed
+      backgroundImage.style.backgroundColor = 'yellow'; // Yellow background when failed
+    };
+    
     // Create 4 animals in the red rectangle area
     createAnimalsForTurn();
+    
+    // Add farm animals to the scene if they're not in the background
+    addFarmAnimalsToScene();
     
     // Clear previous drop zones
     dropZones.innerHTML = '';
@@ -97,6 +113,169 @@
     autoResize();
   }
 
+  function addFarmAnimalsToScene() {
+    // Clear previous scene animals
+    const existingSceneAnimals = spotDropContainer.querySelectorAll('.scene-animal');
+    existingSceneAnimals.forEach(animal => animal.remove());
+    
+    if (currentSlide === 0) { // Slide 1 (Farm Animals)
+      // Add farm animals to the scene
+      const farmAnimals = [
+        { name: 'tractor', image: '../assets/images/Spot and Drop/slide 1/mouse in the tractor.png', x: 25, y: 60 },
+        { name: 'cow', image: '../assets/images/Spot and Drop/slide 1/mouse on the cow.png', x: 50, y: 50 },
+        { name: 'horse', image: '../assets/images/Spot and Drop/slide 1/mouse under the horse.png', x: 70, y: 40 },
+        { name: 'duck', image: '../assets/images/Spot and Drop/slide 1/mouse next to the duck.png', x: 80, y: 70 }
+      ];
+      
+      farmAnimals.forEach(animal => {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'scene-animal';
+        animalDiv.style.position = 'absolute';
+        animalDiv.style.left = `${animal.x}%`;
+        animalDiv.style.top = `${animal.y}%`;
+        animalDiv.style.width = '240px';
+        animalDiv.style.height = '240px';
+        animalDiv.style.zIndex = '2';
+        
+        const animalImg = document.createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = '100%';
+        animalImg.style.objectFit = 'contain';
+        
+        animalDiv.appendChild(animalImg);
+        spotDropContainer.appendChild(animalDiv);
+        
+        console.log(`Added farm animal: ${animal.name} at ${animal.x}%, ${animal.y}%`);
+      });
+    } else if (currentSlide === 1) { // Slide 2 (Wild Animals)
+      // Add wild animals to the scene
+      const wildAnimals = [
+        { name: 'lion', image: '../assets/images/Spot and Drop/slide 2/bird-in-the-lion-mouth.png', x: 20, y: 50 },
+        { name: 'bear', image: '../assets/images/Spot and Drop/slide 2/bird on the bear.png', x: 50, y: 60 },
+        { name: 'giraffe', image: '../assets/images/Spot and Drop/slide 2/bird next to the monkey.png', x: 70, y: 30 },
+        { name: 'monkey', image: '../assets/images/Spot and Drop/slide 2/bird under the giraffe.png', x: 80, y: 40 }
+      ];
+      
+      wildAnimals.forEach(animal => {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'scene-animal';
+        animalDiv.style.position = 'absolute';
+        animalDiv.style.left = `${animal.x}%`;
+        animalDiv.style.top = `${animal.y}%`;
+        animalDiv.style.width = '240px';
+        animalDiv.style.height = '240px';
+        animalDiv.style.zIndex = '2';
+        
+        const animalImg = document.createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = '100%';
+        animalImg.style.objectFit = 'contain';
+        
+        animalDiv.appendChild(animalImg);
+        spotDropContainer.appendChild(animalDiv);
+        
+        console.log(`Added wild animal: ${animal.name} at ${animal.x}%, ${animal.y}%`);
+      });
+    } else if (currentSlide === 2) { // Slide 3 (Wild Animals)
+      // Add wild animals to the scene using slide 3 images
+      const wildAnimals = [
+        { name: 'box', image: '../assets/images/Spot and Drop/slide 3/bird in the box.png', x: 20, y: 50 },
+        { name: 'tiger', image: '../assets/images/Spot and Drop/slide 3/bird under the tiger.png', x: 50, y: 60 },
+        { name: 'elephant', image: '../assets/images/Spot and Drop/slide 3/bird on the elephant.png', x: 70, y: 30 },
+        { name: 'crocodile', image: '../assets/images/Spot and Drop/slide 3/bird next to the crocodile.png', x: 80, y: 40 }
+      ];
+      
+      wildAnimals.forEach(animal => {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'scene-animal';
+        animalDiv.style.position = 'absolute';
+        animalDiv.style.left = `${animal.x}%`;
+        animalDiv.style.top = `${animal.y}%`;
+        animalDiv.style.width = '240px';
+        animalDiv.style.height = '240px';
+        animalDiv.style.zIndex = '2';
+        
+        const animalImg = document.createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = '100%';
+        animalImg.style.objectFit = 'contain';
+        
+        animalDiv.appendChild(animalImg);
+        spotDropContainer.appendChild(animalDiv);
+        
+        console.log(`Added wild animal: ${animal.name} at ${animal.x}%, ${animal.y}%`);
+      });
+    } else if (currentSlide === 3) { // Slide 4 (Sea Animals)
+      // Add sea animals to the scene using slide 4 images
+      const seaAnimals = [
+        { name: 'seahorse', image: '../assets/images/Spot and Drop/slide 4/starfish next to the seahorse.png', x: 20, y: 50 },
+        { name: 'jellyfish', image: '../assets/images/Spot and Drop/slide 4/starfish on the jellyfish.png', x: 50, y: 40 },
+        { name: 'turtle', image: '../assets/images/Spot and Drop/slide 4/starfish under the turtle.png', x: 70, y: 60 },
+        { name: 'shark', image: '../assets/images/Spot and Drop/slide 4/starfish in the shark mouth.png', x: 80, y: 30 }
+      ];
+      
+      seaAnimals.forEach(animal => {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'scene-animal';
+        animalDiv.style.position = 'absolute';
+        animalDiv.style.left = `${animal.x}%`;
+        animalDiv.style.top = `${animal.y}%`;
+        animalDiv.style.width = '240px';
+        animalDiv.style.height = '240px';
+        animalDiv.style.zIndex = '2';
+        
+        const animalImg = document.createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = '100%';
+        animalImg.style.objectFit = 'contain';
+        
+        animalDiv.appendChild(animalImg);
+        spotDropContainer.appendChild(animalDiv);
+        
+        console.log(`Added sea animal: ${animal.name} at ${animal.x}%, ${animal.y}%`);
+      });
+    } else if (currentSlide === 4) { // Slide 5 (Sea Animals)
+      // Add sea animals to the scene using slide 5 images
+      const seaAnimals = [
+        { name: 'dolphin', image: '../assets/images/Spot and Drop/slide 5/starfish under the dolphin.png', x: 20, y: 50 },
+        { name: 'seashells', image: '../assets/images/Spot and Drop/slide 5/starfish on the seashells.png', x: 50, y: 40 },
+        { name: 'crab', image: '../assets/images/Spot and Drop/slide 5/starfish in the crab mouth.png', x: 70, y: 60 },
+        { name: 'penguin', image: '../assets/images/Spot and Drop/slide 5/starfish next to the penguin.png', x: 80, y: 30 }
+      ];
+      
+      seaAnimals.forEach(animal => {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'scene-animal';
+        animalDiv.style.position = 'absolute';
+        animalDiv.style.left = `${animal.x}%`;
+        animalDiv.style.top = `${animal.y}%`;
+        animalDiv.style.width = '240px';
+        animalDiv.style.height = '240px';
+        animalDiv.style.zIndex = '2';
+        
+        const animalImg = document.createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = '100%';
+        animalImg.style.objectFit = 'contain';
+        
+        animalDiv.appendChild(animalImg);
+        spotDropContainer.appendChild(animalDiv);
+        
+        console.log(`Added sea animal: ${animal.name} at ${animal.x}%, ${animal.y}%`);
+      });
+    }
+  }
+
   function createAnimalsForTurn() {
     const slide = GAME_SLIDES[currentSlide];
     
@@ -114,6 +293,7 @@
       animalDiv.style.height = '60px';
       animalDiv.style.cursor = 'grab';
       animalDiv.style.zIndex = '3';
+      animalDiv.style.backgroundColor = 'rgba(255, 255, 0, 0.3)'; // Yellow background to see the container
       
       const animalImg = document.createElement('img');
       animalImg.src = slide.animalImage;
@@ -122,13 +302,24 @@
       animalImg.style.height = '100%';
       animalImg.style.objectFit = 'contain';
       animalImg.style.display = 'block';
+      animalImg.style.border = '2px solid blue'; // Debug border for image
+      
+      console.log(`Creating image for pattern ${i} with src:`, slide.animalImage);
       
       // Ensure image loads
       animalImg.onload = function() {
-        console.log(`Image loaded for pattern ${i}:`, slide.animalImage);
+        console.log(`✅ Image loaded successfully for pattern ${i}:`, slide.animalImage);
+        animalImg.style.border = '2px solid green'; // Green border when loaded
       };
       animalImg.onerror = function() {
-        console.error(`Failed to load image for pattern ${i}:`, slide.animalImage);
+        console.error(`❌ Failed to load image for pattern ${i}:`, slide.animalImage);
+        animalImg.style.border = '2px solid red'; // Red border when failed
+        animalImg.style.backgroundColor = 'yellow'; // Yellow background when failed
+        
+        // Try alternative image path
+        const altPath = slide.animalImage.replace('../assets/images/Spot and Drop/', '../assets/images/Spot and Drop/slide 1/');
+        console.log(`Trying alternative path:`, altPath);
+        animalImg.src = altPath;
       };
       
       animalDiv.appendChild(animalImg);
