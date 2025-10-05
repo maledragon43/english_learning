@@ -12,6 +12,7 @@
   let currentDropZone = null;
   let isDragging = false;
   let currentDraggedAnimal = null;
+  let patternInitialPositions = [];
   let score = 0;
 
   function setupSlide() {
@@ -68,9 +69,14 @@
     // Update banner with the instruction
     banner.textContent = instruction.text;
     
-    // Show only the current drop zone
+    // Reset all drop zones to original state
     const allDropZones = dropZones.querySelectorAll('.drop-zone');
     allDropZones.forEach((zone, index) => {
+      // Reset drop zone appearance
+      zone.style.border = '';
+      zone.style.backgroundColor = '';
+      zone.innerHTML = ''; // Clear any correct placement images
+      
       if (index === currentInstruction) {
         zone.style.display = 'flex';
         currentDropZone = zone;
@@ -85,6 +91,9 @@
     // Reset character state
     updateCharacterState('thinking');
     
+    // Ensure animals are always visible
+    ensureAnimalsVisible();
+    
     autoResize();
   }
 
@@ -92,9 +101,11 @@
     const slide = GAME_SLIDES[currentSlide];
     
     // Clear previous animals
-    animalToPlace.innerHTML = '';
+    const existingPatterns = spotDropContainer.querySelectorAll('.animal-to-place');
+    existingPatterns.forEach(pattern => pattern.remove());
+    // Don't clear patternInitialPositions - we need to keep track of positions
     
-    // Create 4 animals
+    // Create 4 animals - always visible like Game 3 Unit 4
     for (let i = 0; i < 4; i++) {
       const animalDiv = document.createElement('div');
       animalDiv.className = 'animal-to-place';
@@ -110,40 +121,104 @@
       animalImg.style.width = '100%';
       animalImg.style.height = '100%';
       animalImg.style.objectFit = 'contain';
+      animalImg.style.display = 'block';
+      
+      // Ensure image loads
+      animalImg.onload = function() {
+        console.log(`Image loaded for pattern ${i}:`, slide.animalImage);
+      };
+      animalImg.onerror = function() {
+        console.error(`Failed to load image for pattern ${i}:`, slide.animalImage);
+      };
       
       animalDiv.appendChild(animalImg);
-      animalToPlace.appendChild(animalDiv);
+      spotDropContainer.appendChild(animalDiv);
       
-      // Position in red rectangle area (bottom 20% of container)
-      const container = spotDropContainer;
-      const containerHeight = container.offsetHeight;
-      const redRectangleArea = containerHeight * 0.8; // Start from 80% down
+      // Use predetermined positions for patterns
+      const predeterminedPositions = [
+        { x: 20, y: 85 },   // Bottom-left area
+        { x: 40, y: 85 },   // Bottom-center-left area
+        { x: 60, y: 85 },   // Bottom-center-right area
+        { x: 80, y: 85 }    // Bottom-right area
+      ];
       
-      const randomX = Math.random() * (container.offsetWidth - 60);
-      const randomY = redRectangleArea + Math.random() * (containerHeight * 0.2 - 60);
+      const patternX = predeterminedPositions[i].x;
+      const patternY = predeterminedPositions[i].y;
       
-      animalDiv.style.left = `${randomX}px`;
-      animalDiv.style.top = `${randomY}px`;
+      animalDiv.style.left = `${patternX}%`;
+      animalDiv.style.top = `${patternY}%`;
+      
+      console.log(`Pattern ${i} positioned at:`, animalDiv.style.left, animalDiv.style.top);
+      console.log(`Pattern ${i} image source:`, slide.animalImage);
+      
+      // Store initial position with unique ID
+      const patternId = `pattern_${currentSlide}_${i}`;
+      patternInitialPositions.push({
+        id: patternId,
+        element: animalDiv,
+        x: patternX,
+        y: patternY,
+        slide: currentSlide,
+        index: i
+      });
       
       // Add drag functionality
       animalDiv.addEventListener('mousedown', handleMouseDown);
     }
+    
+    // Make sure animals are visible immediately
+    console.log(`Created ${4} animals for slide ${currentSlide}`);
+    
+    // Force visibility
+    setTimeout(() => {
+      const patterns = spotDropContainer.querySelectorAll('.animal-to-place');
+      console.log(`Found ${patterns.length} patterns in container`);
+      patterns.forEach((pattern, index) => {
+        console.log(`Pattern ${index}:`, pattern.style.left, pattern.style.top, pattern.style.display);
+      });
+    }, 100);
   }
 
-  function positionAnimalRandomly() {
-    const container = spotDropContainer;
-    const animal = animalToPlace;
+  function ensureAnimalsVisible() {
+    // Make sure all animals are visible and positioned correctly
+    const animals = spotDropContainer.querySelectorAll('.animal-to-place');
+    animals.forEach((animal, index) => {
+      animal.style.display = 'block';
+      animal.style.visibility = 'visible';
+      animal.style.opacity = '1';
+      
+      // Ensure they're positioned at the bottom
+      if (!animal.style.left || !animal.style.top) {
+        const predeterminedPositions = [
+          { x: 20, y: 85 },   // Bottom-left area
+          { x: 40, y: 85 },   // Bottom-center-left area
+          { x: 60, y: 85 },   // Bottom-center-right area
+          { x: 80, y: 85 }    // Bottom-right area
+        ];
+        
+        if (predeterminedPositions[index]) {
+          animal.style.left = `${predeterminedPositions[index].x}%`;
+          animal.style.top = `${predeterminedPositions[index].y}%`;
+        }
+      }
+    });
     
-    // Random position within the container
-    const maxX = container.offsetWidth - animal.offsetWidth;
-    const maxY = container.offsetHeight - animal.offsetHeight;
-    
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-    
-    animal.style.left = `${randomX}px`;
-    animal.style.top = `${randomY}px`;
+    console.log(`Ensured ${animals.length} animals are visible`);
   }
+
+  function returnPatternToInitialPosition(pattern) {
+    // Find the initial position for this pattern
+    const initialPos = patternInitialPositions.find(pos => pos.element === pattern);
+    if (initialPos) {
+      pattern.style.left = `${initialPos.x}%`;
+      pattern.style.top = `${initialPos.y}%`;
+    } else {
+      // If not found, return to a default position (bottom area)
+      pattern.style.left = '50%';
+      pattern.style.top = '80%';
+    }
+  }
+
 
   function checkDrop(animal, dropZone) {
     const slide = GAME_SLIDES[currentSlide];
@@ -168,16 +243,11 @@
       dropZone.classList.add('correct');
       tts('Correct!');
       
-      // Show correct image
+      // Show correct feedback without replacing drop zone content
       setTimeout(() => {
-        const correctImg = document.createElement('img');
-        correctImg.src = instruction.correctImage;
-        correctImg.alt = 'Correct placement';
-        correctImg.style.width = '100%';
-        correctImg.style.height = '100%';
-        correctImg.style.objectFit = 'contain';
-        dropZone.innerHTML = '';
-        dropZone.appendChild(correctImg);
+        // Just show visual feedback, don't replace content
+        dropZone.style.border = '3px solid green';
+        dropZone.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
         
         // Move to next instruction
         setTimeout(() => {
@@ -198,7 +268,7 @@
       // Reset after delay
       setTimeout(() => {
         dropZone.classList.remove('wrong');
-        positionAnimalRandomly();
+        returnPatternToInitialPosition(animal);
         updateCharacterState('thinking');
       }, 1500);
     }
@@ -208,13 +278,24 @@
   let dragOffset = { x: 0, y: 0 };
 
   function handleMouseDown(e) {
+    console.log('Mouse down event triggered on:', e.target);
     if (e.target.tagName === 'IMG') {
+      console.log('Starting drag for pattern');
       isDragging = true;
       const animal = e.target.parentElement;
-      const rect = animal.getBoundingClientRect();
+      const container = spotDropContainer;
+      const containerRect = container.getBoundingClientRect();
       
-      dragOffset.x = e.clientX - rect.left;
-      dragOffset.y = e.clientY - rect.top;
+      // Calculate offset from mouse to pattern's current position relative to container
+      const currentLeftPercent = parseFloat(animal.style.left) || 0;
+      const currentTopPercent = parseFloat(animal.style.top) || 0;
+      
+      // Convert percentage to pixels for offset calculation
+      const currentX = (currentLeftPercent / 100) * containerRect.width;
+      const currentY = (currentTopPercent / 100) * containerRect.height;
+      
+      dragOffset.x = e.clientX - containerRect.left - currentX;
+      dragOffset.y = e.clientY - containerRect.top - currentY;
       
       animal.style.zIndex = '10';
       animal.style.cursor = 'grabbing';
@@ -232,6 +313,7 @@
       const container = spotDropContainer;
       const containerRect = container.getBoundingClientRect();
       
+      // Position pattern exactly at mouse cursor
       let newX = e.clientX - containerRect.left - dragOffset.x;
       let newY = e.clientY - containerRect.top - dragOffset.y;
       
@@ -239,8 +321,12 @@
       newX = Math.max(0, Math.min(newX, containerRect.width - animal.offsetWidth));
       newY = Math.max(0, Math.min(newY, containerRect.height - animal.offsetHeight));
       
-      animal.style.left = `${newX}px`;
-      animal.style.top = `${newY}px`;
+      // Convert to percentage units
+      const newXPercent = (newX / containerRect.width) * 100;
+      const newYPercent = (newY / containerRect.height) * 100;
+      
+      animal.style.left = `${newXPercent}%`;
+      animal.style.top = `${newYPercent}%`;
     }
   }
 

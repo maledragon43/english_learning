@@ -47,8 +47,8 @@
 
     .spot-drop-container {
       position: relative;
-      width: 87%;
-      height: 80%;
+      width: 88%;
+      height: 100%;
       top:-4.5%;
       min-height: 60vh;
       display: flex;
@@ -106,15 +106,15 @@
 
     .animal-to-place {
       position: absolute;
-      width: 60px;
-      height: 60px;
+      width: 100%;
+      height: 100%;
       cursor: grab;
       transition: all 0.3s ease;
       z-index: 3;
     }
 
     .animal-to-place:hover {
-      transform: scale(1.1);
+      /* No size change on hover */
     }
 
     .animal-to-place:active {
