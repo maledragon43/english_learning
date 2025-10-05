@@ -7,7 +7,7 @@
   const animalToPlace = document.getElementById('animalToPlace');
   const banner = document.getElementById('statusBanner');
 
-  let currentSlide = 0;
+  let currentSlide = 0; // Start on slide 3 for testing
   let currentInstruction = 0;
   let currentDropZone = null;
   let isDragging = false;
@@ -40,7 +40,6 @@
     // Debug background image loading
     backgroundImage.onload = function() {
       console.log(`✅ Background image loaded successfully:`, slide.background);
-      backgroundImage.style.border = '3px solid green'; // Green border when loaded
     };
     backgroundImage.onerror = function() {
       console.error(`❌ Failed to load background image:`, slide.background);
@@ -85,19 +84,18 @@
     // Update banner with the instruction
     banner.textContent = instruction.text;
     
-    // Reset all drop zones to original state
+    // Show all drop zones as white circles
     const allDropZones = dropZones.querySelectorAll('.drop-zone');
     allDropZones.forEach((zone, index) => {
-      // Reset drop zone appearance
+      // Reset drop zone to white circle appearance
       zone.style.border = '';
       zone.style.backgroundColor = '';
-      zone.innerHTML = ''; // Clear any correct placement images
+      zone.style.borderRadius = '50%'; // Ensure it stays circular
+      zone.innerHTML = ''; // Clear any content
+      zone.style.display = 'flex'; // Show all drop zones
       
       if (index === currentInstruction) {
-        zone.style.display = 'flex';
         currentDropZone = zone;
-      } else {
-        zone.style.display = 'none';
       }
     });
     
@@ -121,10 +119,10 @@
     if (currentSlide === 0) { // Slide 1 (Farm Animals)
       // Add farm animals to the scene
       const farmAnimals = [
-        { name: 'tractor', image: '../assets/images/Spot and Drop/slide 1/mouse in the tractor.png', x: 25, y: 60 },
-        { name: 'cow', image: '../assets/images/Spot and Drop/slide 1/mouse on the cow.png', x: 50, y: 50 },
-        { name: 'horse', image: '../assets/images/Spot and Drop/slide 1/mouse under the horse.png', x: 70, y: 40 },
-        { name: 'duck', image: '../assets/images/Spot and Drop/slide 1/mouse next to the duck.png', x: 80, y: 70 }
+        { name: 'tractor', image: '../assets/images/Spot and Drop/slide 1/mouse in the tractor.png', x: 5, y: 30 },
+        { name: 'cow', image: '../assets/images/Spot and Drop/slide 1/mouse on the cow.png', x: 20, y: 50 },
+        { name: 'horse', image: '../assets/images/Spot and Drop/slide 1/mouse under the horse.png', x: 55, y: 20 },
+        { name: 'duck', image: '../assets/images/Spot and Drop/slide 1/mouse next to the duck.png', x: 60, y: 60 }
       ];
       
       farmAnimals.forEach(animal => {
@@ -133,8 +131,27 @@
         animalDiv.style.position = 'absolute';
         animalDiv.style.left = `${animal.x}%`;
         animalDiv.style.top = `${animal.y}%`;
-        animalDiv.style.width = '240px';
-        animalDiv.style.height = '240px';
+        
+        // Set different sizes for different animals using switch
+        switch (animal.name) {
+          case 'cow':
+            animalDiv.style.width = '40%';
+            animalDiv.style.height = '35%';
+            break;
+          case 'tractor':
+            animalDiv.style.width = '25%';
+            animalDiv.style.height = '23%';
+            break;
+          case 'horse':
+            animalDiv.style.width = '50%';
+            animalDiv.style.height = '45%';
+            break;
+          default:
+            animalDiv.style.width = '25%';
+            animalDiv.style.height = '23%';
+            break;
+        }
+        
         animalDiv.style.zIndex = '2';
         
         const animalImg = document.createElement('img');
@@ -152,10 +169,10 @@
     } else if (currentSlide === 1) { // Slide 2 (Wild Animals)
       // Add wild animals to the scene
       const wildAnimals = [
-        { name: 'lion', image: '../assets/images/Spot and Drop/slide 2/bird-in-the-lion-mouth.png', x: 20, y: 50 },
-        { name: 'bear', image: '../assets/images/Spot and Drop/slide 2/bird on the bear.png', x: 50, y: 60 },
-        { name: 'giraffe', image: '../assets/images/Spot and Drop/slide 2/bird next to the monkey.png', x: 70, y: 30 },
-        { name: 'monkey', image: '../assets/images/Spot and Drop/slide 2/bird under the giraffe.png', x: 80, y: 40 }
+        { name: 'lion', image: '../assets/images/Spot and Drop/slide 2/bird-in-the-lion-mouth.png', x: -5, y: 40 },
+        { name: 'bear', image: '../assets/images/Spot and Drop/slide 2/bird on the bear.png', x: 30, y: 45 },
+        { name: 'giraffe', image: '../assets/images/Spot and Drop/slide 2/bird under the giraffe.png', x: 65, y: 20 },
+        { name: 'monkey', image: '../assets/images/Spot and Drop/slide 2/bird next to the monkey.png', x: 30, y: 20 }
       ];
       
       wildAnimals.forEach(animal => {
@@ -164,8 +181,31 @@
         animalDiv.style.position = 'absolute';
         animalDiv.style.left = `${animal.x}%`;
         animalDiv.style.top = `${animal.y}%`;
-        animalDiv.style.width = '240px';
-        animalDiv.style.height = '240px';
+        
+        // Set different sizes for different animals using switch
+        switch (animal.name) {
+          case 'lion':
+            animalDiv.style.width = '35%';
+            animalDiv.style.height = '40%';
+            break;
+          case 'monkey':
+            animalDiv.style.width = '30%';
+            animalDiv.style.height = '30%';
+            break;
+          case 'bear':
+            animalDiv.style.width = '45%';
+            animalDiv.style.height = '40%';
+            break;
+          case 'giraffe':
+            animalDiv.style.width = '40%';
+            animalDiv.style.height = '65%';
+            break;
+          default:
+            animalDiv.style.width = '25%';
+            animalDiv.style.height = '23%';
+            break;
+        }
+        
         animalDiv.style.zIndex = '2';
         
         const animalImg = document.createElement('img');
@@ -183,10 +223,10 @@
     } else if (currentSlide === 2) { // Slide 3 (Wild Animals)
       // Add wild animals to the scene using slide 3 images
       const wildAnimals = [
-        { name: 'box', image: '../assets/images/Spot and Drop/slide 3/bird in the box.png', x: 20, y: 50 },
-        { name: 'tiger', image: '../assets/images/Spot and Drop/slide 3/bird under the tiger.png', x: 50, y: 60 },
-        { name: 'elephant', image: '../assets/images/Spot and Drop/slide 3/bird on the elephant.png', x: 70, y: 30 },
-        { name: 'crocodile', image: '../assets/images/Spot and Drop/slide 3/bird next to the crocodile.png', x: 80, y: 40 }
+        { name: 'box', image: '../assets/images/Spot and Drop/slide 3/bird in the box.png', x: 80, y: 50 },
+        { name: 'tiger', image: '../assets/images/Spot and Drop/slide 3/bird-under-the-tiger.png', x: 0, y: 40 },
+        { name: 'elephant', image: '../assets/images/Spot and Drop/slide 3/bird-on-the-elephant.png', x: 40, y: 30 },
+        { name: 'crocodile', image: '../assets/images/Spot and Drop/slide 3/bird next to the crocodile.png', x: 60, y: 60 }
       ];
       
       wildAnimals.forEach(animal => {
@@ -195,8 +235,27 @@
         animalDiv.style.position = 'absolute';
         animalDiv.style.left = `${animal.x}%`;
         animalDiv.style.top = `${animal.y}%`;
-        animalDiv.style.width = '240px';
-        animalDiv.style.height = '240px';
+        
+        // Set different sizes for different animals using switch
+        switch (animal.name) {
+          case 'tiger':
+            animalDiv.style.width = '45%';
+            animalDiv.style.height = '35%';
+            break;
+          case 'elephant':
+            animalDiv.style.width = '40%';
+            animalDiv.style.height = '40%';
+            break;
+          case 'crocodile':
+            animalDiv.style.width = '30%';
+            animalDiv.style.height = '23%';
+            break;
+          default:
+            animalDiv.style.width = '20%';
+            animalDiv.style.height = '20%';
+            break;
+        }
+        
         animalDiv.style.zIndex = '2';
         
         const animalImg = document.createElement('img');
@@ -214,10 +273,10 @@
     } else if (currentSlide === 3) { // Slide 4 (Sea Animals)
       // Add sea animals to the scene using slide 4 images
       const seaAnimals = [
-        { name: 'seahorse', image: '../assets/images/Spot and Drop/slide 4/starfish next to the seahorse.png', x: 20, y: 50 },
-        { name: 'jellyfish', image: '../assets/images/Spot and Drop/slide 4/starfish on the jellyfish.png', x: 50, y: 40 },
-        { name: 'turtle', image: '../assets/images/Spot and Drop/slide 4/starfish under the turtle.png', x: 70, y: 60 },
-        { name: 'shark', image: '../assets/images/Spot and Drop/slide 4/starfish in the shark mouth.png', x: 80, y: 30 }
+        { name: 'seahorse', image: '../assets/images/Spot and Drop/slide 4/starfish next to the seahorse.png', x: 10, y: 30 },
+        { name: 'jellyfish', image: '../assets/images/Spot and Drop/slide 4/starfish on the jellyfish.png', x: 10, y: 50 },
+        { name: 'turtle', image: '../assets/images/Spot and Drop/slide 4/starfish under the turtle.png', x: 40, y: 55 },
+        { name: 'shark', image: '../assets/images/Spot and Drop/slide 4/starfish in the shark mouth.png', x: 50, y: 20 }
       ];
       
       seaAnimals.forEach(animal => {
@@ -226,8 +285,27 @@
         animalDiv.style.position = 'absolute';
         animalDiv.style.left = `${animal.x}%`;
         animalDiv.style.top = `${animal.y}%`;
-        animalDiv.style.width = '240px';
-        animalDiv.style.height = '240px';
+        
+        // Set different sizes for different animals using switch
+        switch (animal.name) {
+          case 'seahorse':
+            animalDiv.style.width = '20%';
+            animalDiv.style.height = '25%';
+            break;
+          case 'jellyfish':
+            animalDiv.style.width = '36%';
+            animalDiv.style.height = '35%';
+            break;
+          case 'shark':
+            animalDiv.style.width = '55%';
+            animalDiv.style.height = '58%';
+            break;
+          default:
+            animalDiv.style.width = '25%';
+            animalDiv.style.height = '23%';
+            break;
+        }
+        
         animalDiv.style.zIndex = '2';
         
         const animalImg = document.createElement('img');
@@ -245,10 +323,10 @@
     } else if (currentSlide === 4) { // Slide 5 (Sea Animals)
       // Add sea animals to the scene using slide 5 images
       const seaAnimals = [
-        { name: 'dolphin', image: '../assets/images/Spot and Drop/slide 5/starfish under the dolphin.png', x: 20, y: 50 },
-        { name: 'seashells', image: '../assets/images/Spot and Drop/slide 5/starfish on the seashells.png', x: 50, y: 40 },
-        { name: 'crab', image: '../assets/images/Spot and Drop/slide 5/starfish in the crab mouth.png', x: 70, y: 60 },
-        { name: 'penguin', image: '../assets/images/Spot and Drop/slide 5/starfish next to the penguin.png', x: 80, y: 30 }
+        { name: 'dolphin', image: '../assets/images/Spot and Drop/slide 5/starfish under the dolphin.png', x: -10, y: 20 },
+        { name: 'seashells', image: '../assets/images/Spot and Drop/slide 5/starfish on the seashells.png', x: 25, y: 63 },
+        { name: 'crab', image: '../assets/images/Spot and Drop/slide 5/starfish in the crab mouth.png', x: 63, y: 23 },
+        { name: 'penguin', image: '../assets/images/Spot and Drop/slide 5/starfish next to the penguin.png', x: 50, y: 53 }
       ];
       
       seaAnimals.forEach(animal => {
@@ -257,8 +335,31 @@
         animalDiv.style.position = 'absolute';
         animalDiv.style.left = `${animal.x}%`;
         animalDiv.style.top = `${animal.y}%`;
-        animalDiv.style.width = '240px';
-        animalDiv.style.height = '240px';
+        
+        // Set different sizes for different animals using switch
+        switch (animal.name) {
+          case 'dolphin':
+            animalDiv.style.width = '60%';
+            animalDiv.style.height = '55%';
+            break;
+          case 'seashells':
+            animalDiv.style.width = '20%';
+            animalDiv.style.height = '20%';
+            break;
+          case 'crab':
+            animalDiv.style.width = '30%';
+            animalDiv.style.height = '30%';
+            break;
+          case 'penguin':
+            animalDiv.style.width = '32%';
+            animalDiv.style.height = '33%';
+            break;
+          default:
+            animalDiv.style.width = '25%';
+            animalDiv.style.height = '23%';
+            break;
+        }
+        
         animalDiv.style.zIndex = '2';
         
         const animalImg = document.createElement('img');
@@ -292,8 +393,7 @@
       animalDiv.style.width = '60px';
       animalDiv.style.height = '60px';
       animalDiv.style.cursor = 'grab';
-      animalDiv.style.zIndex = '3';
-      animalDiv.style.backgroundColor = 'rgba(255, 255, 0, 0.3)'; // Yellow background to see the container
+      animalDiv.style.zIndex = '199';
       
       const animalImg = document.createElement('img');
       animalImg.src = slide.animalImage;
@@ -302,14 +402,12 @@
       animalImg.style.height = '100%';
       animalImg.style.objectFit = 'contain';
       animalImg.style.display = 'block';
-      animalImg.style.border = '2px solid blue'; // Debug border for image
       
       console.log(`Creating image for pattern ${i} with src:`, slide.animalImage);
       
       // Ensure image loads
       animalImg.onload = function() {
         console.log(`✅ Image loaded successfully for pattern ${i}:`, slide.animalImage);
-        animalImg.style.border = '2px solid green'; // Green border when loaded
       };
       animalImg.onerror = function() {
         console.error(`❌ Failed to load image for pattern ${i}:`, slide.animalImage);
@@ -431,21 +529,13 @@
       post({type: 'score:delta', value: 10});
       score += 10;
       
-      dropZone.classList.add('correct');
       tts('Correct!');
       
-      // Show correct feedback without replacing drop zone content
+      // Move to next instruction without changing drop zone
       setTimeout(() => {
-        // Just show visual feedback, don't replace content
-        dropZone.style.border = '3px solid green';
-        dropZone.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
-        
-        // Move to next instruction
-        setTimeout(() => {
-          currentInstruction++;
-          startInstruction();
-        }, 2000);
-      }, 1000);
+        currentInstruction++;
+        startInstruction();
+      }, 2000);
       
     } else {
       // Wrong drop
@@ -453,12 +543,10 @@
       post({type: 'score:delta', value: -5});
       score -= 5;
       
-      dropZone.classList.add('wrong');
       tts('Try again!');
       
-      // Reset after delay
+      // Reset after delay without changing drop zone
       setTimeout(() => {
-        dropZone.classList.remove('wrong');
         returnPatternToInitialPosition(animal);
         updateCharacterState('thinking');
       }, 1500);
@@ -488,7 +576,7 @@
       dragOffset.x = e.clientX - containerRect.left - currentX;
       dragOffset.y = e.clientY - containerRect.top - currentY;
       
-      animal.style.zIndex = '10';
+      animal.style.zIndex = '199';
       animal.style.cursor = 'grabbing';
       
       // Store reference to the dragged animal
@@ -525,7 +613,7 @@
     if (isDragging && currentDraggedAnimal) {
       isDragging = false;
       const animal = currentDraggedAnimal;
-      animal.style.zIndex = '3';
+      animal.style.zIndex = '199';
       animal.style.cursor = 'grab';
       
       // Check if dropped on current drop zone
@@ -538,7 +626,7 @@
   }
 
   function setup() {
-    currentSlide = 0;
+    currentSlide = 0; // Start on slide 3 for testing
     currentInstruction = 0;
     score = 0;
     
