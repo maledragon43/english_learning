@@ -13,6 +13,7 @@
   let isDragging = false;
   let currentDraggedAnimal = null;
   let patternInitialPositions = [];
+  let placedPatterns = new Set(); // Track which patterns have been correctly placed
   let score = 0;
 
   function setupSlide() {
@@ -30,6 +31,7 @@
 
     const slide = GAME_SLIDES[currentSlide];
     currentInstruction = 0;
+    placedPatterns.clear(); // Reset placed patterns for new slide
     
     // Set background
     backgroundImage.src = slide.background;
@@ -394,6 +396,7 @@
       animalDiv.style.height = '60px';
       animalDiv.style.cursor = 'grab';
       animalDiv.style.zIndex = '199';
+      animalDiv.style.pointerEvents = 'auto'; // Ensure new patterns are interactive
       
       const animalImg = document.createElement('img');
       animalImg.src = slide.animalImage;
@@ -524,7 +527,11 @@
                      centerY >= rect.top && centerY <= rect.bottom;
     
     if (isInZone) {
-      // Correct drop
+      // Correct drop - mark pattern as placed and lock it
+      placedPatterns.add(animal);
+      animal.style.pointerEvents = 'none'; // Prevent further interaction
+      animal.style.cursor = 'default';
+      
       updateCharacterState('correct');
       post({type: 'score:delta', value: 10});
       score += 10;
@@ -559,9 +566,16 @@
   function handleMouseDown(e) {
     console.log('Mouse down event triggered on:', e.target);
     if (e.target.tagName === 'IMG') {
+      const animal = e.target.parentElement;
+      
+      // Check if this pattern has already been correctly placed
+      if (placedPatterns.has(animal)) {
+        console.log('Pattern already placed, cannot drag');
+        return;
+      }
+      
       console.log('Starting drag for pattern');
       isDragging = true;
-      const animal = e.target.parentElement;
       const container = spotDropContainer;
       const containerRect = container.getBoundingClientRect();
       
@@ -629,6 +643,7 @@
     currentSlide = 0; // Start on slide 3 for testing
     currentInstruction = 0;
     score = 0;
+    placedPatterns.clear(); // Reset placed patterns for new game
     
     // Reset character state
     updateCharacterState('thinking');
