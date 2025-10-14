@@ -10,210 +10,200 @@
   let target = '';
   let timer = null;
   let placedBalloons = [];
+  let activeBalloons = [];
+  let balloonSpawnTimer = null;
+  let gameRunning = true;
+  let currentTurn = 0;
+  let maxTurns = 10; // Total number of turns
+  let targetChangeTimer = null;
 
-     function render(){
-     stage.innerHTML='';
-     placedBalloons = []; // Reset placed balloons for new round
-     
-     // Use relative positions based on dashboard size - 5 different positions
-     const stageWidth = stage.offsetWidth;
-     const stageHeight = stage.offsetHeight;
-     
-     const positions = [
-       { x: stageWidth * 0.1, y: stageHeight * 0.1 },    // Top-left
-       { x: stageWidth * 0.7, y: stageHeight * 0.15 },   // Top-right
-       { x: stageWidth * 0.3, y: stageHeight * 0.5 },    // Middle-left
-       { x: stageWidth * 0.8, y: stageHeight * 0.4 },    // Middle-right
-       { x: stageWidth * 0.15, y: stageHeight * 0.8 }    // Bottom-left
-     ];
-     
-     // Shuffle the positions array for initial generation
-     const shuffledPositions = shuffle([...positions]);
-     
-     names.forEach((n, index)=>{
-       const el = document.createElement('div');
-       el.className = 'balloon';
-       el.setAttribute('data-name', n);
-       
-       // Use shuffled positions for initial generation
-       const pos = shuffledPositions[index] || shuffledPositions[0];
-       
-       el.style.left = pos.x + 'px';
-       el.style.top = pos.y + 'px';
-      
-      // Set z-index to ensure correct balloon is on top
-      if (n === target) {
-        el.style.zIndex = '10';
-      } else {
-        el.style.zIndex = '1';
+  function render(){
+    stage.innerHTML='';
+    activeBalloons = []; // Reset active balloons for new round
+    clearInterval(balloonSpawnTimer);
+    
+    // Start continuous balloon spawning
+    startBalloonSpawning();
+  }
+
+  function startBalloonSpawning() {
+    // Spawn a new balloon every 3 seconds (less dense)
+    balloonSpawnTimer = setInterval(() => {
+      if (gameRunning) {
+        spawnBalloon();
       }
-     
-     // Create balloon image
-     const balloonImg = document.createElement('img');
-     balloonImg.src = `../assets/images/balloons/${n}-balloon.png`;
-     balloonImg.alt = n;
-     balloonImg.className = 'balloon-image';
-     el.appendChild(balloonImg);
-     
-            el._clickHandler = () => onPick(el, n);
-      el.addEventListener('click', el._clickHandler);
-      stage.appendChild(el);
-      
-             // Track placed balloon position with relative dimensions
-       const balloonWidth = stageWidth * 0.25; // 25% of stage width
-       const balloonHeight = balloonWidth; // Square aspect ratio
-       placedBalloons.push({ x: pos.x, y: pos.y, width: balloonWidth, height: balloonHeight });
-   });
- }
+    }, 3000);
+  }
+
+  function spawnBalloon() {
+    const stageWidth = stage.offsetWidth;
+    const stageHeight = stage.offsetHeight;
+    
+    // Random horizontal position at the bottom - allow full width for overlapping
+    const x = Math.random() * stageWidth;
+    const y = stageHeight; // Start at bottom
+    
+    // Higher chance for target color balloons (50% target, 50% random)
+    let color;
+    if (Math.random() < 0.5) {
+      color = target; // 50% chance for target color
+    } else {
+      color = COLORS[Math.floor(Math.random() * COLORS.length)]; // 50% chance for random color
+    }
+    
+    // Debug: Log when black balloon spawns
+    if (color === 'BLACK') {
+      console.log('🎈 BLACK BALLOON SPAWNED!');
+    }
+    
+    const balloon = createBalloon(color, x, y);
+    stage.appendChild(balloon);
+    activeBalloons.push(balloon);
+    
+    // Start rising animation
+    animateBalloonRise(balloon);
+  }
+
+  function createBalloon(color, x, y) {
+    const el = document.createElement('div');
+    el.className = 'balloon';
+    el.setAttribute('data-name', color);
+    el.setAttribute('data-id', Date.now() + Math.random());
+    
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.zIndex = '1';
+    
+    // Create balloon image
+    const balloonImg = document.createElement('img');
+    balloonImg.src = `../assets/images/balloons/${color}-balloon.png`;
+    balloonImg.alt = color;
+    balloonImg.className = 'balloon-image';
+    
+    // Debug: Log image loading for black balloons
+    if (color === 'BLACK') {
+      console.log('🎈 Creating BLACK balloon with src:', balloonImg.src);
+      balloonImg.onload = () => console.log('✅ BLACK balloon image loaded successfully');
+      balloonImg.onerror = () => console.log('❌ BLACK balloon image failed to load');
+    }
+    
+    el.appendChild(balloonImg);
+    
+    el._clickHandler = () => onPick(el, color);
+    el.addEventListener('click', el._clickHandler);
+    
+    return el;
+  }
+
+  function animateBalloonRise(balloon) {
+    const stageHeight = stage.offsetHeight;
+    // Vary rise speed between 40-60 pixels per second for natural overlapping
+    const riseSpeed = 40 + Math.random() * 20; // 40-60 pixels per second
+    const riseDistance = stageHeight + 100; // Rise beyond the top
+    const duration = (riseDistance / riseSpeed) * 1000; // Convert to milliseconds
+    
+    // Animate balloon rising
+    balloon.style.transition = `top ${duration}ms linear`;
+    balloon.style.top = '-100px'; // Move above the stage
+    
+    // Remove balloon when it reaches the top
+    setTimeout(() => {
+      if (balloon.parentNode) {
+        balloon.remove();
+        const index = activeBalloons.indexOf(balloon);
+        if (index > -1) {
+          activeBalloons.splice(index, 1);
+        }
+      }
+    }, duration);
+  }
 
    function start(){
-    names = pickFive();
-    target = names[Math.floor(Math.random()*names.length)];
+    gameRunning = true;
+    currentTurn = 0;
+    // Pick a random target color for first turn
+    target = COLORS[Math.floor(Math.random() * COLORS.length)];
     banner.textContent = target;
     tts(target);
     render();
-    progress.style.width = '100%';
     updateCharacterState('thinking');
     autoResize();
+    
+    // Debug: Force spawn a black balloon after 5 seconds for testing
+    setTimeout(() => {
+      console.log('🔍 Forcing BLACK balloon spawn for testing...');
+      const stageWidth = stage.offsetWidth;
+      const stageHeight = stage.offsetHeight;
+      const x = Math.random() * stageWidth; // Allow full width for overlapping
+      const y = stageHeight;
+      const blackBalloon = createBalloon('BLACK', x, y);
+      stage.appendChild(blackBalloon);
+      activeBalloons.push(blackBalloon);
+      animateBalloonRise(blackBalloon);
+    }, 5000);
   }
 
  function schedule(){
-   // This function is no longer needed for the relaxed game
-   // Balloons don't disappear automatically
+   // This function is no longer needed for the continuous balloon game
  }
- 
-              function shuffleBalloonPositions(){
-     console.log('Shuffle function called!');
-     // Get all visible balloons
-     const visibleBalloons = Array.from(stage.querySelectorAll('.balloon')).filter(x=>x.style.opacity!=='0');
-     console.log('Visible balloons:', visibleBalloons.length);
-     if (visibleBalloons.length < 2) {
-       console.log('Not enough balloons to shuffle');
-       return; // Need at least 2 balloons to shuffle
+
+ function nextTurn() {
+   currentTurn++;
+   
+   if (currentTurn >= maxTurns) {
+     // Game completed
+     gameRunning = false;
+     clearInterval(balloonSpawnTimer);
+     banner.textContent = 'WELL DONE!';
+     tts('Well done!');
+     updateCharacterState('correct');
+     
+     // Restart game after 3 seconds
+     setTimeout(() => {
+       start();
+     }, 3000);
+     return;
+   }
+   
+   // Pick new target color for next turn
+   target = COLORS[Math.floor(Math.random() * COLORS.length)];
+   banner.textContent = target;
+   tts(target);
+   updateCharacterState('thinking');
+ }
+
+         function onPick(el, n){
+   if (el.style.opacity==='0') return;
+   if (n===target){
+     updateCharacterState('correct');
+     post({type:'score:delta', value:10});
+     
+     // Remove balloon immediately - no burst image
+     el.style.opacity='0';
+     el.style.pointerEvents = 'none';
+     
+     // Remove from active balloons array
+     const index = activeBalloons.indexOf(el);
+     if (index > -1) {
+       activeBalloons.splice(index, 1);
      }
      
-     // Clear placed balloons tracking
-     placedBalloons = [];
+     // Remove from DOM immediately
+     if (el.parentNode) {
+       el.remove();
+     }
      
-     // Use relative positions based on dashboard size - 5 different positions
-     const stageWidth = stage.offsetWidth;
-     const stageHeight = stage.offsetHeight;
-     
-     const positions = [
-       { x: stageWidth * 0.1, y: stageHeight * 0.1 },    // Top-left
-       { x: stageWidth * 0.7, y: stageHeight * 0.15 },   // Top-right
-       { x: stageWidth * 0.3, y: stageHeight * 0.5 },    // Middle-left
-       { x: stageWidth * 0.8, y: stageHeight * 0.4 },    // Middle-right
-       { x: stageWidth * 0.15, y: stageHeight * 0.8 }    // Bottom-left
-     ];
-     
-     // Shuffle the positions array
-     const shuffledPositions = shuffle([...positions]);
-     
-     // Reposition each balloon to a different fixed position
-     visibleBalloons.forEach((el, index) => {
-       const pos = shuffledPositions[index] || shuffledPositions[0];
-       
-       console.log(`Balloon ${index}: Moving to position (${pos.x}, ${pos.y})`);
-       el.style.transition = 'left 0.8s ease, top 0.8s ease';
-       el.style.left = pos.x + 'px';
-       el.style.top = pos.y + 'px';
-       
-       // Track placed balloon position with relative dimensions
-       const balloonWidth = stageWidth * 0.25; // 25% of stage width
-       const balloonHeight = balloonWidth; // Square aspect ratio
-       placedBalloons.push({ x: pos.x, y: pos.y, width: balloonWidth, height: balloonHeight });
-     });
-     
-     // Reset transition after animation and ensure correct z-index
+     // Advance to next turn after correct click
      setTimeout(() => {
-       visibleBalloons.forEach(el => {
-         el.style.transition = 'opacity 0.3s ease';
-         // Ensure target balloon stays on top after shuffling
-         const balloonColor = el.getAttribute('data-name');
-         if (balloonColor === target) {
-           el.style.zIndex = '10';
-         } else {
-           el.style.zIndex = '1';
-         }
-       });
-     }, 800);
+       nextTurn();
+     }, 500);
+     
+   } else {
+     updateCharacterState('wrong');
+     post({type:'score:delta', value:-5});
+     setTimeout(() => updateCharacterState('thinking'), 1000);
+   }
  }
-
-        function onPick(el, n){
-    if (el.style.opacity==='0') return;
-    if (n===target){
-      updateCharacterState('correct');
-      post({type:'score:delta', value:10});
-      
-      // Change balloon to burst image
-      const balloonImg = el.querySelector('.balloon-image');
-      if (balloonImg) {
-        balloonImg.src = `../assets/images/balloons/${n}-balloon_1.png`;
-      }
-      
-      // Hide the balloon after showing burst effect
-      setTimeout(() => {
-        el.style.opacity='0'; 
-        el.style.pointerEvents='none';
-      }, 500);
-      
-              // Replace the burst balloon with a new one
-       setTimeout(() => {
-         // Get all current visible balloon colors
-         const visibleBalloons = Array.from(stage.querySelectorAll('.balloon')).filter(x=>x.style.opacity!=='0');
-         const currentColors = visibleBalloons.map(x=>x.getAttribute('data-name'));
-         
-         // Get a new color that's different from all existing colors
-         let newColor;
-         do {
-           newColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-         } while (currentColors.includes(newColor));
-         
-                    // Update the balloon with new color
-          el.setAttribute('data-name', newColor);
-          balloonImg.src = `../assets/images/balloons/${newColor}-balloon.png`;
-          el.style.opacity = '1';
-          el.style.pointerEvents = 'auto';
-          
-
-          
-          // Remove old click listener and add new one with the new color
-          el.removeEventListener('click', el._clickHandler);
-          el._clickHandler = () => onPick(el, newColor);
-          el.addEventListener('click', el._clickHandler);
-         
-                    // Select new target from all visible balloons (including the new one)
-          const allVisibleBalloons = Array.from(stage.querySelectorAll('.balloon')).filter(x=>x.style.opacity!=='0');
-          const allVisibleColors = allVisibleBalloons.map(x=>x.getAttribute('data-name'));
-          target = allVisibleColors[Math.floor(Math.random()*allVisibleColors.length)];
-          banner.textContent = target; 
-          tts(target);
-          updateCharacterState('thinking');
-          
-          // Update z-index to ensure new target is on top
-          allVisibleBalloons.forEach(balloon => {
-            const balloonColor = balloon.getAttribute('data-name');
-            if (balloonColor === target) {
-              balloon.style.zIndex = '10';
-            } else {
-              balloon.style.zIndex = '1';
-            }
-          });
-          
-                                // Shuffle ALL balloon positions when problem changes (including the new one)
-            setTimeout(() => {
-              console.log('About to shuffle balloon positions');
-              shuffleBalloonPositions();
-            }, 100);
-       }, 600);
-      
-    } else {
-      updateCharacterState('wrong');
-      post({type:'score:delta', value:-5});
-      setTimeout(() => updateCharacterState('thinking'), 1000);
-    }
-  }
 
   start();
 })();
