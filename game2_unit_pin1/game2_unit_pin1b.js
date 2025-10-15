@@ -109,16 +109,7 @@
     balloon.style.transition = `top ${duration}ms linear`;
     balloon.style.top = '-100px'; // Move above the stage
     
-    // Add smooth fade effect when balloon reaches top area
-    const fadeStartTime = duration * 0.6; // Start fading at 60% of journey
-    setTimeout(() => {
-      if (balloon.parentNode) {
-        balloon.style.transition = 'opacity 1.5s ease-in-out';
-        balloon.style.opacity = '0';
-      }
-    }, fadeStartTime);
-    
-    // Remove balloon when it reaches the top
+    // Remove balloon when it reaches the top - no fade effect
     setTimeout(() => {
       if (balloon.parentNode) {
         balloon.remove();
