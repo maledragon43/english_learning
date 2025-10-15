@@ -27,28 +27,31 @@
   }
 
   function startBalloonSpawning() {
-    // Spawn a new balloon every 3 seconds (less dense)
+    // Spawn a new balloon every 2.5 seconds for consistent flow
     balloonSpawnTimer = setInterval(() => {
       if (gameRunning) {
         spawnBalloon();
       }
-    }, 3000);
+    }, 2500);
   }
 
   function spawnBalloon() {
     const stageWidth = stage.offsetWidth;
     const stageHeight = stage.offsetHeight;
     
-    // Random horizontal position at the bottom - allow full width for overlapping
-    const x = Math.random() * stageWidth;
+    // Keep balloons away from edges - account for the -3vw left shift
+    // Use larger margins to ensure balloons stay in visible area
+    const margin = stageWidth * 0.3; // 30% margin on each side
+    const spawnWidth = stageWidth - (margin * 2);
+    const x = margin + Math.random() * spawnWidth;
     const y = stageHeight; // Start at bottom
     
-    // Higher chance for target color balloons (50% target, 50% random)
+    // More incorrect balloons on screen (30% target, 70% random)
     let color;
-    if (Math.random() < 0.5) {
-      color = target; // 50% chance for target color
+    if (Math.random() < 0.3) {
+      color = target; // 30% chance for target color
     } else {
-      color = COLORS[Math.floor(Math.random() * COLORS.length)]; // 50% chance for random color
+      color = COLORS[Math.floor(Math.random() * COLORS.length)]; // 70% chance for random color
     }
     
     // Debug: Log when black balloon spawns
@@ -97,14 +100,23 @@
 
   function animateBalloonRise(balloon) {
     const stageHeight = stage.offsetHeight;
-    // Vary rise speed between 40-60 pixels per second for natural overlapping
-    const riseSpeed = 40 + Math.random() * 20; // 40-60 pixels per second
+    // Faster rise speed between 80-120 pixels per second for faster movement
+    const riseSpeed = 80 + Math.random() * 40; // 80-120 pixels per second
     const riseDistance = stageHeight + 100; // Rise beyond the top
     const duration = (riseDistance / riseSpeed) * 1000; // Convert to milliseconds
     
     // Animate balloon rising
     balloon.style.transition = `top ${duration}ms linear`;
     balloon.style.top = '-100px'; // Move above the stage
+    
+    // Add smooth fade effect when balloon reaches top area
+    const fadeStartTime = duration * 0.6; // Start fading at 60% of journey
+    setTimeout(() => {
+      if (balloon.parentNode) {
+        balloon.style.transition = 'opacity 1.5s ease-in-out';
+        balloon.style.opacity = '0';
+      }
+    }, fadeStartTime);
     
     // Remove balloon when it reaches the top
     setTimeout(() => {
@@ -128,20 +140,8 @@
     render();
     updateCharacterState('thinking');
     autoResize();
-    
-    // Debug: Force spawn a black balloon after 5 seconds for testing
-    setTimeout(() => {
-      console.log('🔍 Forcing BLACK balloon spawn for testing...');
-      const stageWidth = stage.offsetWidth;
-      const stageHeight = stage.offsetHeight;
-      const x = Math.random() * stageWidth; // Allow full width for overlapping
-      const y = stageHeight;
-      const blackBalloon = createBalloon('BLACK', x, y);
-      stage.appendChild(blackBalloon);
-      activeBalloons.push(blackBalloon);
-      animateBalloonRise(blackBalloon);
-    }, 5000);
   }
+  
 
  function schedule(){
    // This function is no longer needed for the continuous balloon game
