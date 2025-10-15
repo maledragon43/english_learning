@@ -40,10 +40,11 @@
     const stageHeight = stage.offsetHeight;
     
     // Keep balloons away from edges - account for the -3vw left shift
-    // Use larger margins to ensure balloons stay in visible area
+    // Move balloons 10% of dashboard width to the left
     const margin = stageWidth * 0.3; // 30% margin on each side
     const spawnWidth = stageWidth - (margin * 2);
-    const x = margin + Math.random() * spawnWidth;
+    const leftOffset = stageWidth * 0.2; // 10% left offset
+    const x = margin + Math.random() * spawnWidth - leftOffset;
     const y = stageHeight; // Start at bottom
     
     // More incorrect balloons on screen (30% target, 70% random)
