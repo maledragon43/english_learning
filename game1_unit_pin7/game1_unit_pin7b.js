@@ -7,7 +7,7 @@
   const animalToPlace = document.getElementById('animalToPlace');
   const banner = document.getElementById('statusBanner');
 
-  let currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
+  let currentSlide = 4; // Start with slide 5 (Bedroom 3) for testing
   let currentInstruction = 0;
   let currentDropZone = null;
   let isDragging = false;
@@ -57,8 +57,8 @@
     backgroundImage.src = slide.background;
     backgroundImage.alt = slide.title;
     
-    // Adjust background position for slide 3 (Kitchen 2) and slide 4 (Bedroom 2)
-    if (currentSlide === 2 || currentSlide === 3) {
+    // Adjust background position for slide 1, 2, and 5
+    if (currentSlide === 0 || currentSlide === 1 || currentSlide === 4) {
       backgroundImage.style.top = '5%';
     } else {
       backgroundImage.style.top = '0';
@@ -579,6 +579,85 @@
         
         console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
       });
+    } else if (currentSlide === 4) { // Slide 5 (Bedroom 3)
+      // Add bedroom 3 room elements to the scene
+      const roomElements = [
+        { 
+          name: 'window', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/room elements/window_blue-sky.png', 
+          x: 40, 
+          y: 20,
+          width: '25%',  
+          height: '30%'  
+        },
+        { 
+          name: 'box', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/room elements/box.png', 
+          x: 11, 
+          y: 68,
+          width: '15%',  
+          height: '17%'
+        },
+        { 
+          name: 'desk', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/room elements/computer-desk.png', 
+          x: 5, 
+          y: 30,
+          width: '30%',  
+          height: '35%'
+        },
+        { 
+          name: 'bed', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/room elements/bed_yellow.png', 
+          x: 60, 
+          y: 50,
+          width: '35%',  
+          height: '30%'
+        },
+        { 
+          name: 'mat', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/room elements/mat_pink.png', 
+          x: 30, 
+          y: 60,
+          width: '30%',  
+          height: '23%'  
+        }
+      ];
+      
+      roomElements.forEach(element => {
+        const elementDiv = document.createElement('div');
+        elementDiv.className = 'room-element';
+        elementDiv.style.position = 'absolute';
+        elementDiv.style.left = `${element.x}%`;
+        elementDiv.style.top = `${element.y}%`;
+        elementDiv.style.width = element.width;
+        elementDiv.style.height = element.height;
+        
+        // Set z-index: bed on top layer, desk above box, mat on bottom
+        if (element.name === 'mat') {
+          elementDiv.style.zIndex = '1';
+        } else if (element.name === 'desk') {
+          elementDiv.style.zIndex = '2';
+        } else if (element.name === 'box') {
+          elementDiv.style.zIndex = '3';
+        } else if (element.name === 'bed') {
+          elementDiv.style.zIndex = '4';
+        } else {
+          elementDiv.style.zIndex = '2'; // window and other elements
+        }
+        
+        const elementImg = document.createElement('img');
+        elementImg.src = element.image;
+        elementImg.alt = element.name;
+        elementImg.style.width = '100%';
+        elementImg.style.height = '100%';
+        elementImg.style.objectFit = 'cover';
+        
+        elementDiv.appendChild(elementImg);
+        spotDropContainer.appendChild(elementDiv);
+        
+        console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
+      });
     }
     // Add room elements for other slides as needed
   }
@@ -771,7 +850,7 @@
   }
 
   function setup() {
-    currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
+    currentSlide = 4; // Start with slide 5 (Bedroom 3) for testing
     currentInstruction = 0;
     score = 0;
     placedPatterns.clear();

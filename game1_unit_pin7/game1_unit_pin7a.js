@@ -193,7 +193,7 @@
           text: "PUT THE DOG ON THE BED.",
           pattern: "dog",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/elements to be placed into the room/dog.png",
-          dropZone: { x: 20, y: 60 }
+          dropZone: { x: 5, y: 68 }
         },
         {
           text: "PUT THE LAMP IN THE BOX.",
@@ -205,7 +205,7 @@
           text: "PUT THE FROG UNDER THE BED.",
           pattern: "frog",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/elements to be placed into the room/frog_green.png",
-          dropZone: { x: 11, y: 72  }
+          dropZone: { x: 30, y: 65 }
         },
         {
           text: "PUT THE TOYS UNDER THE DESK.",
@@ -230,49 +230,49 @@
           text: "PUT THE LAMP UNDER THE DESK.",
           pattern: "lamp",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/lamp_yellow.png",
-          dropZone: { x: 25, y: 55 }
+          dropZone: { x: 13, y: 50 }
         },
         {
           text: "PUT THE TOYS ON THE BED.",
           pattern: "toys",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/toys-in-a-box_1.png",
-          dropZone: { x: 35, y: 60 }
+          dropZone: { x: 76, y: 60 }
         },
         {
           text: "PUT THE HORSE ON THE MAT.",
           pattern: "horse",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/horse-toy.png",
-          dropZone: { x: 50, y: 75 }
+          dropZone: { x: 44, y: 68 }
         },
         {
           text: "PUT THE PAINTING NEXT TO THE WALL.",
           pattern: "painting",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/painting_5.png",
-          dropZone: { x: 80, y: 25 }
+          dropZone: { x: 75, y: 35 }
         },
         {
           text: "PUT THE CAT UNDER THE BED.",
           pattern: "cat",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/cat_growth_sleeping.png",
-          dropZone: { x: 30, y: 65 }
+          dropZone: { x: 80, y: 78 }
         },
         {
           text: "PUT THE FISH IN THE BOX.",
           pattern: "fish",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/fish.png",
-          dropZone: { x: 20, y: 50 }
+          dropZone: { x: 18, y: 73 }
         },
         {
           text: "PUT THE CLOCK UNDER THE WINDOW.",
           pattern: "clock",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/clock_orange.png",
-          dropZone: { x: 75, y: 30 }
+          dropZone: { x: 50, y: 50 }
         },
         {
           text: "PUT THE BEAR ON THE DESK.",
           pattern: "bear",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 3/elements to be placed into the room/teddy-bear.png",
-          dropZone: { x: 25, y: 45 }
+          dropZone: { x: 15, y: 40 }
         }
       ]
     }
