@@ -77,8 +77,8 @@
 
     .drop-zone {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       background: white;
       display: flex;
@@ -98,10 +98,6 @@
       z-index: 199;
     }
 
-    .animal-to-place:hover {
-      /* No size change on hover */
-    }
-
     .animal-to-place:active {
       cursor: grabbing;
     }
@@ -109,7 +105,7 @@
     .animal-to-place img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   </style>
 </head>

@@ -10,37 +10,37 @@
           text: "PUT THE CLOCK NEXT TO THE CUPBOARD.",
           pattern: "clock",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/clock_orange.png",
-          dropZone: { x: 15, y: 20 }
+          dropZone: { x: 70, y: 30 }
         },
         {
           text: "PUT THE MOUSE IN THE FRIDGE.",
           pattern: "mouse",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/mouse.png",
-          dropZone: { x: 10, y: 45 }
+          dropZone: { x: 10, y: 38 }
         },
         {
           text: "PUT THE TOYS ON THE CHAIR.",
           pattern: "toys",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/toys-in-a-box.png",
-          dropZone: { x: 40, y: 70 }
+          dropZone: { x: 83, y: 60 }
         },
         {
           text: "PUT THE PLATE ON THE COOKER.",
           pattern: "plate",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/plate_cream.png",
-          dropZone: { x: 50, y: 45 }
+          dropZone: { x: 41, y: 23 }
         },
         {
           text: "PUT THE CAT UNDER THE TABLE.",
           pattern: "cat",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/cat_growth_sleeping.png",
-          dropZone: { x: 60, y: 60 }
+          dropZone: { x: 60, y: 70 }
         },
         {
           text: "PUT THE SPOON ON THE MAT.",
           pattern: "spoon",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/spoon.png",
-          dropZone: { x: 70, y: 75 }
+          dropZone: { x: 17, y: 67 }
         },
         {
           text: "PUT THE FORK ON THE TABLE.",
@@ -52,7 +52,7 @@
           text: "PUT THE GLASS IN THE CUPBOARD.",
           pattern: "glass",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 1/elements to be placed into the room/glass_water.png",
-          dropZone: { x: 15, y: 25 }
+          dropZone: { x: 88, y: 35 }
         }
       ]
     },
