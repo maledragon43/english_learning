@@ -7,7 +7,7 @@
   const animalToPlace = document.getElementById('animalToPlace');
   const banner = document.getElementById('statusBanner');
 
-  let currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
+  let currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
   let currentInstruction = 0;
   let currentDropZone = null;
   let isDragging = false;
@@ -57,8 +57,8 @@
     backgroundImage.src = slide.background;
     backgroundImage.alt = slide.title;
     
-    // Adjust background position for slide 3 (Kitchen 2)
-    if (currentSlide === 2) {
+    // Adjust background position for slide 3 (Kitchen 2) and slide 4 (Bedroom 2)
+    if (currentSlide === 2 || currentSlide === 3) {
       backgroundImage.style.top = '5%';
     } else {
       backgroundImage.style.top = '0';
@@ -500,6 +500,85 @@
         
         console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
       });
+    } else if (currentSlide === 3) { // Slide 4 (Bedroom 2)
+      // Add bedroom 2 room elements to the scene
+      const roomElements = [
+        { 
+          name: 'window', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/room elements/cartoon-window.png', 
+          x: 40, 
+          y: 23,
+          width: '25%',  
+          height: '28%'  
+        },
+        { 
+          name: 'box', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/room elements/box.png', 
+          x: 53, 
+          y: 60,
+          width: '12%',  
+          height: '15%'
+        },
+        { 
+          name: 'desk', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/room elements/desk-wood_3.png', 
+          x: 70, 
+          y: 30,
+          width: '25%',  
+          height: '32%'
+        },
+        { 
+          name: 'bed', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/room elements/bed_pink.png', 
+          x: 2, 
+          y: 43,
+          width: '40%',  
+          height: '38%'
+        },
+        { 
+          name: 'mat', 
+          image: '../assets/images/drag_and_drop_uint7/photos for BEDROOM 2/room elements/mat_pink_purple.png', 
+          x: 65, 
+          y: 60,
+          width: '30%',  
+          height: '20%'  
+        }
+      ];
+      
+      roomElements.forEach(element => {
+        const elementDiv = document.createElement('div');
+        elementDiv.className = 'room-element';
+        elementDiv.style.position = 'absolute';
+        elementDiv.style.left = `${element.x}%`;
+        elementDiv.style.top = `${element.y}%`;
+        elementDiv.style.width = element.width;
+        elementDiv.style.height = element.height;
+        
+        // Set z-index: bed on top layer, desk above box, mat on bottom
+        if (element.name === 'mat') {
+          elementDiv.style.zIndex = '1';
+        } else if (element.name === 'desk') {
+          elementDiv.style.zIndex = '2';
+        } else if (element.name === 'box') {
+          elementDiv.style.zIndex = '3';
+        } else if (element.name === 'bed') {
+          elementDiv.style.zIndex = '4';
+        } else {
+          elementDiv.style.zIndex = '2'; // window and other elements
+        }
+        
+        const elementImg = document.createElement('img');
+        elementImg.src = element.image;
+        elementImg.alt = element.name;
+        elementImg.style.width = '100%';
+        elementImg.style.height = '100%';
+        elementImg.style.objectFit = 'cover';
+        
+        elementDiv.appendChild(elementImg);
+        spotDropContainer.appendChild(elementDiv);
+        
+        console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
+      });
     }
     // Add room elements for other slides as needed
   }
@@ -692,7 +771,7 @@
   }
 
   function setup() {
-    currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
+    currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
     currentInstruction = 0;
     score = 0;
     placedPatterns.clear();
