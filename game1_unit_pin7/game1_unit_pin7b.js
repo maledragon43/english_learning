@@ -7,7 +7,7 @@
   const animalToPlace = document.getElementById('animalToPlace');
   const banner = document.getElementById('statusBanner');
 
-  let currentSlide = 4; // Start with slide 5 (Bedroom 3) for testing
+  let currentSlide = 0; // Start with slide 1 (Kitchen 1)
   let currentInstruction = 0;
   let currentDropZone = null;
   let isDragging = false;
@@ -21,15 +21,15 @@
     // Return different colors for different slides
     switch(slideIndex) {
       case 0: // Kitchen 1
-        return 'yellow';
+        return '#eeeb52';
       case 1: // Bedroom 1
-        return 'blue';
+        return '#2fb77a';
       case 2: // Kitchen 2
-        return 'blue';
+        return '#79d1ea';
       case 3: // Bedroom 2
-        return 'darkgrey';
+        return '#ed1287';
       case 4: // Bedroom 3
-        return 'blue';
+        return '#5d5e60';
       default:
         return 'white';
     }
@@ -850,7 +850,7 @@
   }
 
   function setup() {
-    currentSlide = 4; // Start with slide 5 (Bedroom 3) for testing
+    currentSlide = 0; // Start with slide 1 (Kitchen 1)
     currentInstruction = 0;
     score = 0;
     placedPatterns.clear();
