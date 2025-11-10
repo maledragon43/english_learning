@@ -120,49 +120,49 @@
           text: "PUT THE PINK SPOON IN THE CUPBOARD.",
           pattern: "spoon",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/spoon_red.png",
-          dropZone: { x: 15, y: 25 }
+          dropZone: { x: 46, y: 32 }
         },
         {
           text: "PUT THE FORK ON THE TABLE.",
           pattern: "fork",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/fork_red.png",
-          dropZone: { x: 50, y: 55 }
+          dropZone: { x: 65, y: 65 }
         },
         {
           text: "PUT THE CLOCK NEXT TO THE FRIDGE.",
           pattern: "clock",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/clock_dark-blue.png",
-          dropZone: { x: 12, y: 45 }
+          dropZone: { x: 64, y: 30 }
         },
         {
           text: "PUT THE GLASS ON THE COOKER.",
           pattern: "glass",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/glass_water.png",
-          dropZone: { x: 50, y: 45 }
+          dropZone: { x: 13.6, y: 33 }
         },
         {
           text: "PUT THE MOUSE IN THE FRIDGE.",
           pattern: "mouse",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/mouse_eating.png",
-          dropZone: { x: 10, y: 45 }
+          dropZone: { x: 77, y: 33 }
         },
         {
           text: "PUT THE DOG ON THE MAT.",
           pattern: "dog",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/happy-dog.png",
-          dropZone: { x: 70, y: 75 }
+          dropZone: { x: 25, y: 67 }
         },
         {
           text: "PUT THE SPOON UNDER THE CHAIR.",
           pattern: "spoon",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/wooden-spoon.png",
-          dropZone: { x: 40, y: 72 }
+          dropZone: { x: 56, y: 77 }
         },
         {
           text: "PUT THE BEAR ON THE CHAIR.",
           pattern: "bear",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/elements to be placed into the room/bear-toy.png",
-          dropZone: { x: 40, y: 70 }
+          dropZone: { x: 79, y: 66 }
         }
       ]
     },

@@ -7,7 +7,7 @@
   const animalToPlace = document.getElementById('animalToPlace');
   const banner = document.getElementById('statusBanner');
 
-  let currentSlide = 1; // Start with slide 2 (Bedroom 1) for testing
+  let currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
   let currentInstruction = 0;
   let currentDropZone = null;
   let isDragging = false;
@@ -23,9 +23,9 @@
       case 0: // Kitchen 1
         return 'yellow';
       case 1: // Bedroom 1
-        return 'green';
+        return 'blue';
       case 2: // Kitchen 2
-        return 'pink';
+        return 'blue';
       case 3: // Bedroom 2
         return 'darkgrey';
       case 4: // Bedroom 3
@@ -56,6 +56,13 @@
     // Set background
     backgroundImage.src = slide.background;
     backgroundImage.alt = slide.title;
+    
+    // Adjust background position for slide 3 (Kitchen 2)
+    if (currentSlide === 2) {
+      backgroundImage.style.top = '5%';
+    } else {
+      backgroundImage.style.top = '0';
+    }
     
     console.log(`Setting background image:`, slide.background);
     
@@ -400,6 +407,99 @@
         
         console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
       });
+    } else if (currentSlide === 2) { // Slide 3 (Kitchen 2)
+      // Add kitchen 2 room elements to the scene
+      const roomElements = [
+        { 
+          name: 'cupboard', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/cupboard_brown.png', 
+          x: 40, 
+          y: 25,
+          width: '18%',  
+          height: '22%'  
+        },
+        { 
+          name: 'fridge', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/fridge_blue_open.png', 
+          x: 73, 
+          y: 22,
+          width: '25%',  
+          height: '33%'
+        },
+        { 
+          name: 'table', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/round-table.png', 
+          x: 50, 
+          y: 62,
+          width: '30%',  
+          height: '25%'
+        },
+        { 
+          name: 'cooker', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/cooker.png', 
+          x: 5, 
+          y: 35,
+          width: '20%',  
+          height: '23%' 
+        },
+        { 
+          name: 'chair', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/hitchen-chair_1.png', 
+          x: 40, 
+          y: 55,
+          width: '18%',  
+          height: '27%'   
+        },
+        { 
+          name: 'chair2', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/hitchen-chair.png', 
+          x: 70, 
+          y: 55,
+          width: '18%',  
+          height: '27%'   
+        },
+        { 
+          name: 'mat', 
+          image: '../assets/images/drag_and_drop_uint7/photos for KITCHEN 2/room elements/mat_light-pink.png', 
+          x: 9, 
+          y: 60,
+          width: '33%',  
+          height: '22%'  
+        }
+      ];
+      
+      roomElements.forEach(element => {
+        const elementDiv = document.createElement('div');
+        elementDiv.className = 'room-element';
+        elementDiv.style.position = 'absolute';
+        elementDiv.style.left = `${element.x}%`;
+        elementDiv.style.top = `${element.y}%`;
+        elementDiv.style.width = element.width;
+        elementDiv.style.height = element.height;
+        
+        // Set z-index: table on top layer, chairs above cooker/cupboard
+        if (element.name === 'table') {
+          elementDiv.style.zIndex = '3';
+        } else if (element.name === 'chair' || element.name === 'chair2') {
+          elementDiv.style.zIndex = '2';
+        } else if (element.name === 'cooker' || element.name === 'cupboard') {
+          elementDiv.style.zIndex = '1';
+        } else {
+          elementDiv.style.zIndex = '1';
+        }
+        
+        const elementImg = document.createElement('img');
+        elementImg.src = element.image;
+        elementImg.alt = element.name;
+        elementImg.style.width = '100%';
+        elementImg.style.height = '100%';
+        elementImg.style.objectFit = 'cover';
+        
+        elementDiv.appendChild(elementImg);
+        spotDropContainer.appendChild(elementDiv);
+        
+        console.log(`Added room element: ${element.name} at ${element.x}%, ${element.y}%`);
+      });
     }
     // Add room elements for other slides as needed
   }
@@ -592,7 +692,7 @@
   }
 
   function setup() {
-    currentSlide = 1; // Start with slide 2 (Bedroom 1) for testing
+    currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
     currentInstruction = 0;
     score = 0;
     placedPatterns.clear();
