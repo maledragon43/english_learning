@@ -65,49 +65,49 @@
           text: "PUT THE CLOCK NEXT TO THE WINDOW.",
           pattern: "clock",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/clock_green.png",
-          dropZone: { x: 75, y: 15 }
+          dropZone: { x: 20, y: 30 }
         },
         {
           text: "PUT THE MOUSE IN THE BOX.",
           pattern: "mouse",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/mouse.png",
-          dropZone: { x: 20, y: 50 }
+          dropZone: { x: 78, y: 47 }
         },
         {
           text: "PUT THE SHELLS UNDER THE BED.",
           pattern: "shells",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/shells.png",
-          dropZone: { x: 30, y: 65 }
+          dropZone: { x: 15, y: 75 }
         },
         {
           text: "PUT THE LAMP ON THE DESK, BY THE BOX.",
           pattern: "lamp",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/lamp_yellow.png",
-          dropZone: { x: 25, y: 45 }
+          dropZone: { x: 67, y: 50 }
         },
         {
           text: "PUT THE TOYS ON THE MAT.",
           pattern: "toys",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/toys-in-a-box_2.png",
-          dropZone: { x: 50, y: 75 }
+          dropZone: { x: 52, y: 70 }
         },
         {
           text: "PUT THE TRACTOR UNDER THE DESK.",
           pattern: "tractor",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/tractor_red.png",
-          dropZone: { x: 25, y: 55 }
+          dropZone: { x: 73, y: 70 }
         },
         {
           text: "PUT THE PAINTING UNDER THE WINDOW.",
           pattern: "painting",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/painting_1.jpg",
-          dropZone: { x: 75, y: 25 }
+          dropZone: { x: 48, y: 50 }
         },
         {
           text: "PUT THE CAT ON THE BED.",
           pattern: "cat",
           patternImage: "../assets/images/drag_and_drop_uint7/photos for BEDROOM 1/elements to be placed into the room/cat_growth_walking.png",
-          dropZone: { x: 35, y: 60 }
+          dropZone: { x: 20, y: 58 }
         }
       ]
     },
