@@ -6,7 +6,7 @@
   const banner = document.getElementById('statusBanner');
   const sceneBackground = document.getElementById('sceneBackground');
   
-  let currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
+  let currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
   let currentInstruction = 0;
   let selectedColor = null;
   let currentObjects = [];
@@ -48,14 +48,14 @@
     },
     // Slide 4: Bedroom 2 - Lamps
     3: {
-      'under-painting': { left: 42, top: 15 },
-      'on-mat': { left: 67, top: 63 },
-      'next-to-window': { left: 45, top: 25 },
-      'under-desk': { left: 72, top: 55 },
-      'on-bed': { left: 5, top: 48 },
-      'in-box': { left: 55, top: 63 },
-      'on-desk': { left: 72, top: 33 },
-      'under-bed': { left: 10, top: 70 }
+      'under-painting': { left: 78, top: 30 },
+      'on-mat': { left: 10, top: 69 },
+      'next-to-window': { left: 33, top: 25 },
+      'under-desk': { left: 71, top: 80 },
+      'on-bed': { left: 47, top: 32 },
+      'in-box': { left: 21, top: 47 },
+      'on-desk': { left: 74, top: 56 },
+      'under-bed': { left: 43, top: 70, rotation: 90 }
     },
     // Slide 5: Bedroom 3 - Bears
     4: {
@@ -88,6 +88,11 @@
   function getDefaultObjectImage(slideIndex, position, instructionIndex) {
     const slide = GAME_SLIDES[slideIndex];
     const slideNumber = slideIndex + 1;
+    
+    // Special case: in-box uses white-lamp-in-the-box.png for slide 4
+    if (position === 'in-box' && slide.objectType === 'lamp' && slideIndex === 3) {
+      return `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/white-lamp-in-the-box.png`;
+    }
     
     // For cats, there are multiple white versions (cat_white_1.png, cat_white_2.png, etc.)
     // Special case: in-box uses white-cat-in-the-box.png
@@ -201,6 +206,9 @@
       // Special handling for cat in box - use red-cat-in-the-box.png
       if (position === 'in-box' && slide.objectType === 'cat' && currentInstructionData.color === 'red') {
         img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/red-cat-in-the-box.png`;
+      } else if (position === 'in-box' && slide.objectType === 'lamp' && slideIndex === 3 && currentInstructionData.color === 'green') {
+        // Special handling for lamp in box - use green-lamp-in-the-box.png
+        img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/green-lamp-in-the-box.png`;
       } else {
         // Use the image path from instruction (files use 'gray' not 'grey')
         img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/${instruction.imagePath}`;
@@ -565,6 +573,76 @@
         elementDiv.appendChild(elementImg);
         coloringArea.appendChild(elementDiv);
       });
+    } else if (currentSlide === 3) { // Slide 4 (Bedroom 2)
+      // Add bedroom 2 room elements to the scene
+      const roomElements = [
+        { 
+          name: 'bed', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 4/bed_red.png', 
+          x: 40, 
+          y: 27,
+          width: '25%',  
+          height: '50%',
+          zIndex: 4
+        },
+        { 
+          name: 'desk', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 4/desk_white.png', 
+          x: 64, 
+          y: 60,
+          width: '25%',  
+          height: '38%',
+          zIndex: 2
+        },
+        { 
+          name: 'mat', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 4/mat_pink.png', 
+          x: 9, 
+          y: 70,
+          width: '30%',  
+          height: '25%',
+          zIndex: 1
+        },
+        { 
+          name: 'painting', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 4/painting_5.png', 
+          x: 78, 
+          y: 12,
+          width: '9%',  
+          height: '16%',
+          zIndex: 3
+        },
+        { 
+          name: 'window', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 4/window_pink.png', 
+          x: 10, 
+          y: 15,
+          width: '24%',  
+          height: '30%',
+          zIndex: 2
+        }
+      ];
+      
+      roomElements.forEach(element => {
+        const elementDiv = document.createElement('div');
+        elementDiv.className = 'room-element';
+        elementDiv.style.position = 'absolute';
+        elementDiv.style.left = `${element.x}%`;
+        elementDiv.style.top = `${element.y}%`;
+        elementDiv.style.width = element.width;
+        elementDiv.style.height = element.height;
+        elementDiv.style.zIndex = element.zIndex || '1';
+        
+        const elementImg = document.createElement('img');
+        elementImg.src = element.image;
+        elementImg.alt = element.name;
+        elementImg.style.width = '100%';
+        elementImg.style.height = '100%';
+        elementImg.style.objectFit = 'cover';
+        
+        elementDiv.appendChild(elementImg);
+        coloringArea.appendChild(elementDiv);
+      });
     }
   }
   
@@ -576,9 +654,15 @@
     objectsToRemove.forEach(obj => obj.remove());
     currentObjects = [];
     
+    // Remove slide-specific classes
+    coloringArea.classList.remove('slide-1', 'slide-2', 'slide-3', 'slide-4', 'slide-5');
+    
     // Load background image
     const slide = GAME_SLIDES[currentSlide];
     sceneBackground.src = slide.background;
+    
+    // Add slide-specific class for CSS targeting
+    coloringArea.classList.add(`slide-${currentSlide + 1}`);
     
     // Add room elements to the scene
     addRoomElementsToScene();
@@ -615,12 +699,14 @@
       currentObjects.push(objectElement);
     });
     
+    // Special styling for slide 4 is handled via CSS class on coloringArea
+    
     startNewInstruction();
     autoResize();
   }
   
   function setup() {
-    currentSlide = 2; // Start with slide 3 (Kitchen 2) for testing
+    currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
     currentInstruction = 0;
     selectedColor = null;
     
