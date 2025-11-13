@@ -29,7 +29,7 @@
         { object: 'cat', color: 'orange', text: 'COLOUR THE CAT NEXT TO THE LAMP ORANGE!', position: 'next-to-lamp', imagePath: 'cat_orange.png' },
         { object: 'cat', color: 'yellow', text: 'COLOUR THE CAT ON THE BED YELLOW!', position: 'on-bed', imagePath: 'cat_yellow.png' },
         { object: 'cat', color: 'blue', text: 'COLOUR THE CAT UNDER THE DESK BLUE!', position: 'under-desk', imagePath: 'cat_blue.png' },
-        { object: 'cat', color: 'red', text: 'COLOUR THE CAT IN THE BOX RED!', position: 'in-box', imagePath: 'cat_red.png' },
+        { object: 'cat', color: 'red', text: 'COLOUR THE CAT IN THE BOX RED!', position: 'in-box', imagePath: 'red-cat-in-the-box.png' },
         { object: 'cat', color: 'pink', text: 'COLOUR THE CAT NEXT TO THE WINDOW PINK!', position: 'next-to-window', imagePath: 'cat_pink.png' },
         { object: 'cat', color: 'green', text: 'COLOUR THE CAT UNDER THE BED GREEN!', position: 'under-bed', imagePath: 'cat_green.png' },
         { object: 'cat', color: 'black', text: 'COLOUR THE CAT ON THE MAT BLACK!', position: 'on-mat', imagePath: 'cat_black.png' }

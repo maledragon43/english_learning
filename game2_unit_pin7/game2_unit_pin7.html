@@ -64,8 +64,8 @@
     }
 
     .object-to-color {
-      width: 80px;
-      height: 80px;
+      width: 10%;
+      height: 16%;
       cursor: pointer;
       transition: all 0.3s ease;
       position: absolute;
@@ -76,6 +76,13 @@
       width: 10%;
       height: 10%;
     }
+
+    .object-to-color[data-object="glass"] {
+      width: 8%;
+      height: 8%;
+    }
+
+    /* Slide 2 specific: 12th child larger size - applied via JavaScript */
 
     .object-to-color:hover {
       transform: scale(1.05);
