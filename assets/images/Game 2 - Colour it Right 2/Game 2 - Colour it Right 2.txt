@@ -1,0 +1,3 @@
+Game 2 - Colour it Right 2:
+
+- we have 5 different slides (with images of the kitchen and the bedroom), and on each slide there are 8 objects in different positions. Children must color the respective objects following the instructions regarding color and position.
