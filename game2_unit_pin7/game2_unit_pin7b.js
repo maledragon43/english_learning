@@ -15,14 +15,14 @@
   const objectPositions = {
     // Slide 1: Kitchen 1 - Spoons
     0: {
-      'on-table': { left: 45, top: 50 },
-      'in-cupboard': { left: 75, top: 25 },
-      'next-to-clock': { left: 80, top: 20 },
-      'on-mat': { left: 5, top: 65 },
-      'under-table': { left: 50, top: 70 },
-      'in-box': { left: 10, top: 55 },
-      'on-cooker': { left: 35, top: 35 },
-      'in-fridge': { left: 3, top: 25 }
+      'on-table': { left: 31, top: 63, rotation: 92 },
+      'in-cupboard': { left: 71, top: 27, rotation: 90 },
+      'next-to-clock': { left: 37, top: 21, rotation: 0 },
+      'on-mat': { left: 59, top: 75, rotation: 90 },
+      'under-table': { left: 34, top: 81, rotation: 86 },
+      'in-box': { left: 10, top: 61, rotation: 0 },
+      'on-cooker': { left: 70, top: 56, rotation: 106 },
+      'in-fridge': { left: 9, top: 32, rotation: 93}
     },
     // Slide 2: Bedroom 1 - Cats
     1: {
@@ -108,6 +108,14 @@
     objectDiv.setAttribute('data-slide', slideIndex);
     objectDiv.setAttribute('data-instruction-index', instructionIndex);
     
+    // Store rotation for hover effect
+    const positions = objectPositions[slideIndex];
+    let rotation = 0;
+    if (positions && positions[position] && positions[position].rotation !== undefined) {
+      rotation = positions[position].rotation;
+      objectDiv.setAttribute('data-rotation', rotation);
+    }
+    
     const img = document.createElement('img');
     // Start with white/default version
     img.src = getDefaultObjectImage(slideIndex, position, instructionIndex);
@@ -120,6 +128,24 @@
       img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/${slide.objectType}.png`;
     };
     objectDiv.appendChild(img);
+    
+    // Add hover effect that preserves rotation
+    objectDiv.addEventListener('mouseenter', function() {
+      const rot = this.getAttribute('data-rotation');
+      if (rot) {
+        this.style.transform = `rotate(${rot}deg) scale(1.05)`;
+      } else {
+        this.style.transform = 'scale(1.05)';
+      }
+    });
+    objectDiv.addEventListener('mouseleave', function() {
+      const rot = this.getAttribute('data-rotation');
+      if (rot) {
+        this.style.transform = `rotate(${rot}deg)`;
+      } else {
+        this.style.transform = '';
+      }
+    });
     
     objectDiv.addEventListener('click', () => onObjectClick(objectDiv, slideIndex, objectType, position, instruction));
     return objectDiv;
@@ -214,91 +240,91 @@
         { 
           name: 'cupboard', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/cupboard_brown.png', 
-          x: 75, 
-          y: 20,
+          x: 68, 
+          y: 12,
           width: '20%',  
-          height: '30%',
+          height: '41%',
           zIndex: 1
         },
         { 
           name: 'fridge', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/fridge_blue_open.png', 
-          x: 3, 
-          y: 20,
+          x: 7, 
+          y: 15,
           width: '25%',  
-          height: '35%',
+          height: '50%',
           zIndex: 1
         },
         { 
           name: 'table', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/kitchen-table.png', 
-          x: 40, 
-          y: 45,
-          width: '35%',  
-          height: '35%',
+          x: 23, 
+          y: 64,
+          width: '30%',  
+          height: '33%',
           zIndex: 3
         },
         { 
           name: 'cooker', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/cooker.png', 
-          x: 30, 
-          y: 28,
-          width: '18%', 
-          height: '20%',
-          zIndex: 1
+          x: 66, 
+          y: 60,
+          width: '17%', 
+          height: '36%',
+          zIndex: 2
         },
         { 
           name: 'chair', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/wooden-chair_1.png', 
-          x: 28, 
-          y: 48,
-          width: '18%',  
-          height: '28%',
+          x: 5, 
+          y: 56,
+          width: '21%',  
+          height: '41%',
           zIndex: 2
         },
         { 
           name: 'chair2', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/wooden-chair.png', 
-          x: 72, 
-          y: 48,
-          width: '18%',  
-          height: '28%',
+          x: 45, 
+          y: 50,
+          width: '21%',  
+          height: '41%',
           zIndex: 2
         },
         { 
           name: 'mat', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/mat_cream_blue.png', 
-          x: 2, 
+          x: 41, 
           y: 58,
-          width: '28%',  
-          height: '18%',
+          width: '46%',  
+          height: '50%',
           zIndex: 1
         },
         { 
           name: 'clock', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/clock_orange.png', 
-          x: 78, 
+          x: 32, 
           y: 18,
-          width: '12%',  
-          height: '12%',
+          width: '8%',  
+          height: '15%',
           zIndex: 2
         },
         { 
           name: 'window', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/window_white.png', 
-          x: 50, 
-          y: 5,
+          x: 44, 
+          y: 17,
           width: '25%',  
-          height: '20%',
+          height: '36%',
           zIndex: 1
         },
         { 
           name: 'box', 
           image: '../assets/images/Game 2 - Colour it Right 2/slide 1/box.png', 
-          x: 8, 
-          y: 52,
-          width: '15%',  
-          height: '18%',
+          x: 10, 
+          y: 59,
+          width: '10%',  
+          height: '20%',
           zIndex: 2
         }
       ];
@@ -318,7 +344,7 @@
         elementImg.alt = element.name;
         elementImg.style.width = '100%';
         elementImg.style.height = '100%';
-        elementImg.style.objectFit = 'contain';
+        elementImg.style.objectFit = 'cover';
         
         elementDiv.appendChild(elementImg);
         coloringArea.appendChild(elementDiv);
@@ -357,6 +383,10 @@
         const position = positions[instruction.position];
         objectElement.style.left = position.left + '%';
         objectElement.style.top = position.top + '%';
+        // Apply rotation if specified
+        if (position.rotation !== undefined) {
+          objectElement.style.transform = `rotate(${position.rotation}deg)`;
+        }
       }
       
       coloringArea.appendChild(objectElement);
