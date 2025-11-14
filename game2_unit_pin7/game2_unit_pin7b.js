@@ -6,7 +6,7 @@
   const banner = document.getElementById('statusBanner');
   const sceneBackground = document.getElementById('sceneBackground');
   
-  let currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
+  let currentSlide = 0; // Start with slide 1 (Kitchen 1)
   let currentInstruction = 0;
   let selectedColor = null;
   let currentObjects = [];
@@ -59,14 +59,14 @@
     },
     // Slide 5: Bedroom 3 - Bears
     4: {
-      'under-bed': { left: 65, top: 70 },
-      'next-to-lamp': { left: 8, top: 35 },
-      'in-box': { left: 13, top: 70 },
-      'next-to-bed': { left: 62, top: 55 },
-      'under-desk': { left: 8, top: 50 },
-      'on-mat': { left: 32, top: 63 },
-      'under-window': { left: 42, top: 25 },
-      'on-bed': { left: 62, top: 52 }
+      'under-bed': { left: 71, top: 85, rotation: 90 },
+      'next-to-lamp': { left: 17, top: 21 },
+      'in-box': { left: 34, top: 59 },
+      'next-to-bed': { left: 52, top: 77 },
+      'under-desk': { left: 10, top: 40 },
+      'on-mat': { left: 28, top: 79 },
+      'under-window': { left: 49, top: 50 },
+      'on-bed': { left: 66, top: 61 }
     }
   };
   
@@ -92,6 +92,11 @@
     // Special case: in-box uses white-lamp-in-the-box.png for slide 4
     if (position === 'in-box' && slide.objectType === 'lamp' && slideIndex === 3) {
       return `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/white-lamp-in-the-box.png`;
+    }
+    
+    // Special case: in-box uses white-bear-in-the-box.png for slide 5
+    if (position === 'in-box' && slide.objectType === 'bear' && slideIndex === 4) {
+      return `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/white-bear-in-the-box.png`;
     }
     
     // For cats, there are multiple white versions (cat_white_1.png, cat_white_2.png, etc.)
@@ -209,6 +214,9 @@
       } else if (position === 'in-box' && slide.objectType === 'lamp' && slideIndex === 3 && currentInstructionData.color === 'green') {
         // Special handling for lamp in box - use green-lamp-in-the-box.png
         img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/green-lamp-in-the-box.png`;
+      } else if (position === 'in-box' && slide.objectType === 'bear' && slideIndex === 4 && currentInstructionData.color === 'purple') {
+        // Special handling for bear in box - use purple-bear-in-the-box.png
+        img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/purple-bear-in-the-box.png`;
       } else {
         // Use the image path from instruction (files use 'gray' not 'grey')
         img.src = `../assets/images/Game 2 - Colour it Right 2/slide ${slideNumber}/${instruction.imagePath}`;
@@ -643,6 +651,76 @@
         elementDiv.appendChild(elementImg);
         coloringArea.appendChild(elementDiv);
       });
+    } else if (currentSlide === 4) { // Slide 5 (Bedroom 3)
+      // Add bedroom 3 room elements to the scene
+      const roomElements = [
+        { 
+          name: 'bed', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 5/bed.png', 
+          x: 59, 
+          y: 51,
+          width: '30%',  
+          height: '45%',
+          zIndex: 2
+        },
+        { 
+          name: 'desk', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 5/computer-desk.png', 
+          x: 8, 
+          y: 22,
+          width: '25%',  
+          height: '35%',
+          zIndex: 2
+        },
+        { 
+          name: 'mat', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 5/yoga-mat_orange.png', 
+          x: 15, 
+          y: 80,
+          width: '29%',  
+          height: '22%',
+          zIndex: 1
+        },
+        { 
+          name: 'painting', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 5/painting_1.jpg', 
+          x: 70, 
+          y: 15,
+          width: '13%',  
+          height: '14%',
+          zIndex: 3
+        },
+        { 
+          name: 'window', 
+          image: '../assets/images/Game 2 - Colour it Right 2/slide 5/window_orange-sky.png', 
+          x: 46, 
+          y: 12,
+          width: '17%',  
+          height: '38%',
+          zIndex: 2
+        }
+      ];
+      
+      roomElements.forEach(element => {
+        const elementDiv = document.createElement('div');
+        elementDiv.className = 'room-element';
+        elementDiv.style.position = 'absolute';
+        elementDiv.style.left = `${element.x}%`;
+        elementDiv.style.top = `${element.y}%`;
+        elementDiv.style.width = element.width;
+        elementDiv.style.height = element.height;
+        elementDiv.style.zIndex = element.zIndex || '1';
+        
+        const elementImg = document.createElement('img');
+        elementImg.src = element.image;
+        elementImg.alt = element.name;
+        elementImg.style.width = '100%';
+        elementImg.style.height = '100%';
+        elementImg.style.objectFit = 'cover';
+        
+        elementDiv.appendChild(elementImg);
+        coloringArea.appendChild(elementDiv);
+      });
     }
   }
   
@@ -706,7 +784,7 @@
   }
   
   function setup() {
-    currentSlide = 3; // Start with slide 4 (Bedroom 2) for testing
+    currentSlide = 0; // Start with slide 1 (Kitchen 1)
     currentInstruction = 0;
     selectedColor = null;
     
