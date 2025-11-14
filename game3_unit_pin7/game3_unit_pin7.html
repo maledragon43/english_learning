@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 3 · Yes or No 2</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+    
+    /* Remove justify-content: center from game-problem-area for this game */
+    .game-problem-area {
+      justify-content: unset !important;
+    }
+    
+    .game-top-text {
+      font-size: clamp(18px, 2vw, 30px) !important;
+      line-height: 1.3;
+      padding: 12px 20px;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 200%;
+      white-space: normal;
+      text-align: center;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-top-instruction {
+      width: 70% !important;
+      margin: 0 auto !important;
+      display: flex;
+      align-items: center;
+      position: relative;
+      left: 45%;
+    }
+
+    .game-top-instruction-inner {
+      max-width: 100% !important;
+      padding: 12px 20px;
+      min-height: 60px;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 300%;
+    }
+
+    .yes-no-container {
+      display: flex;
+      width: 86%;
+      height: 86%;
+      flex-direction: column;
+      align-items: center;
+      padding: 2vw;
+      position: relative;
+      top: 8%;
+    }
+
+    .scene-image-container {
+      width: 101%;
+      height: 81%;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      top: -1%;
+    }
+
+    .scene-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 4vw;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .yes-button, .no-button {
+      width: 15vw;
+      height: 6vw;
+      min-width: 100px;
+      min-height: 50px;
+      max-width: 300px;
+      max-height: 150px;
+      border: none;
+      border-radius: 1rem;
+      font-size: clamp(16px, 3vw, 24px);
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .yes-button {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
+
+    .yes-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    .yes-button.correct {
+      background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+      box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+    }
+
+    .yes-button.wrong {
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      box-shadow: 0 0 20px rgba(244, 67, 54, 0.8);
+    }
+
+    .no-button {
+      background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    }
+
+    .no-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(244, 67, 54, 0.4);
+    }
+
+    .no-button.correct {
+      background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+      box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+    }
+
+    .no-button.wrong {
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+      box-shadow: 0 0 20px rgba(244, 67, 54, 0.8);
+    }
+
+    .yes-button:active, .no-button:active {
+      transform: scale(0.95);
+    }
+
+    .yes-button:disabled, .no-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-page">
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="statusBanner" class="game-top-text">LISTEN AND DECIDE</div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div class="yes-no-container">
+            <div class="scene-image-container" id="sceneImageContainer">
+              <img id="sceneImage" class="scene-image" src="" alt="Scene">
+            </div>
+            <div class="button-container">
+              <button class="yes-button" id="yesButton">YES</button>
+              <button class="no-button" id="noButton">NO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="game3_unit_pin7a.js"></script>
+  <script src="game3_unit_pin7b.js"></script>
+</body>
+</html>
+
