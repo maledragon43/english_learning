@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game 1 · Knock-knock</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Ensure iframe only shows game content */
+    body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+    .game-shell { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .game-page { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: flex-start; background: transparent; transform: translateX(-3vw); }
+    
+    .game-top-text {
+      font-size: clamp(18px, 3vw, 32px) !important;
+      line-height: 1.3;
+      padding: 12px 20px;
+      word-wrap: break-word;
+      word-break: break-word;
+      max-width: 200%;
+      white-space: normal;
+      text-align: center;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game-top-instruction {
+      width: 70% !important;
+      margin: 0 auto !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      left: 45%;
+    }
+
+    .game-top-instruction-inner {
+      max-width: 100% !important;
+      padding: 12px 20px;
+      min-height: 60px;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 300%;
+    }
+
+    .knock-knock-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 83%;
+      height: 74%;
+      padding: 2vw;
+      position: relative;
+    }
+
+    .scene-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .doors-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      position: relative;
+      z-index: 1;
+      margin-top: 5vh;
+    }
+
+    .door-wrapper {
+      position: relative;
+      width: 20vw;
+      height: 35vw;
+      min-width: 150px;
+      min-height: 250px;
+      max-width: 250px;
+      max-height: 400px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .door-wrapper:hover:not(.door-opened) {
+      transform: scale(1.05);
+    }
+
+    .door-wrapper.door-opened {
+      cursor: default;
+    }
+
+    .door-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .door-closed {
+      z-index: 100;
+      background-color: transparent;
+    }
+
+    .door-half-open {
+      z-index: 50;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .door-wrapper.door-opening .door-half-open {
+      opacity: 1;
+    }
+
+    .door-wrapper.door-opened .door-closed {
+      opacity: 0;
+    }
+
+    .door-wrapper.door-opened .door-half-open {
+      opacity: 1;
+    }
+
+    .character-behind-door {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      z-index: -100;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      display: none !important;
+      pointer-events: none;
+    }
+
+    .door-wrapper.door-opened .character-behind-door {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      z-index: 60;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .knocking-hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      object-fit: contain;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .door-wrapper.knocking .knocking-hand {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-shell">
+    <div class="game-page">
+      <div class="game-board">
+        <!-- Top dashboard -->
+        <div class="game-top-instruction">
+          <div class="game-top-instruction-inner">
+            <div id="statusBanner" class="game-top-text">KNOCK ON THE DOORS</div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <img class="game-student" src="../assets/images/chars/squirrel think.png" alt="">
+
+        <!-- Problem area -->
+        <div class="game-problem-area">
+          <div class="knock-knock-container">
+            <img id="sceneBackground" class="scene-background" src="" alt="Background">
+            
+            <div class="doors-container" id="doorsContainer">
+              <div class="door-wrapper" data-door-index="0">
+                <img class="door-image door-closed" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_closed_1.png" alt="Door">
+                <img class="door-image door-half-open" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_half-open.png" alt="Door">
+                <img class="character-behind-door" src="" alt="Character">
+                <img class="knocking-hand" src="../assets/images/Game 1 - Knock-knock (new game)/photos/knocking-hand.png" alt="Knocking">
+              </div>
+              <div class="door-wrapper" data-door-index="1">
+                <img class="door-image door-closed" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_closed_1.png" alt="Door">
+                <img class="door-image door-half-open" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_half-open.png" alt="Door">
+                <img class="character-behind-door" src="" alt="Character">
+                <img class="knocking-hand" src="../assets/images/Game 1 - Knock-knock (new game)/photos/knocking-hand.png" alt="Knocking">
+              </div>
+              <div class="door-wrapper" data-door-index="2">
+                <img class="door-image door-closed" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_closed_1.png" alt="Door">
+                <img class="door-image door-half-open" src="../assets/images/Game 1 - Knock-knock (new game)/photos/door_wood_half-open.png" alt="Door">
+                <img class="character-behind-door" src="" alt="Character">
+                <img class="knocking-hand" src="../assets/images/Game 1 - Knock-knock (new game)/photos/knocking-hand.png" alt="Knocking">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="game1_unit_pin9a.js"></script>
+  <script src="game1_unit_pin9b.js"></script>
+</body>
+</html>
+
